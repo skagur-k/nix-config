@@ -35,6 +35,15 @@ in
       # Remove history data we don't want to see
       export HISTIGNORE="pwd:ls:cd"
 
+      # Source zsh configuration files
+      if [[ -f ~/.config/zsh/aliases.zsh ]]; then
+          source ~/.config/zsh/aliases.zsh
+      fi
+
+      if [[ -f ~/.config/zsh/functions.zsh ]]; then
+          source ~/.config/zsh/functions.zsh
+      fi
+
       # History configuration
       HISTSIZE=10000
       SAVEHIST=10000
@@ -47,6 +56,8 @@ in
       # Set editor
       export EDITOR=helix
       export VISUAL=helix
+
+      zellij setup --generate-auto-start zsh
     '';
   };
 
