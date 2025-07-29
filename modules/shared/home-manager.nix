@@ -57,7 +57,7 @@ in
       export EDITOR=helix
       export VISUAL=helix
 
-      zellij setup --generate-auto-start zsh
+      eval "$(zellij setup --generate-auto-start zsh)"
     '';
   };
 
