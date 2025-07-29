@@ -11,5 +11,13 @@ let
   xdg_stateHome = "${config.users.users.${user}.home}/.local/state";
 in
 {
+  # Ghostty configuration
+  "${xdg_configHome}/ghostty/config" = {
+    text = builtins.readFile ./config/ghostty/config;
+  };
 
+  # LeaderKey configuration
+  "${xdg_configHome}/leaderkey/config.json" = {
+    text = builtins.readFile ./config/leaderkey/config.json;
+  };
 }

@@ -2,28 +2,32 @@ _:
 
 [
   # Development Tools
-  # "homebrew/cask/docker"
   "visual-studio-code"
+  "ghostty"
+  "cursor"
 
   # Productivity Tools
   "raycast"
+  "cleanshot"
+  "obsidian"
+  "todoist-app"
 
   # Browsers
   "google-chrome"
 
-  # Communication Tools - Examples (uncomment as needed)
-  # "discord"
-  # "notion"
-  "slack"
-  # "telegram"
-  # "zoom"
+  # Optimization Tools
+  "alt-tab"
+  "leader-key"
+  "bettertouchtool"
+  "mos"
+  "karabiner-elements"
+  "hiddenbar"
 
-  # Utility Tools - Examples (uncomment as needed)
-  # "syncthing"
-  # "1password"
-  # "rectangle"
-
-  # Entertainment Tools - Examples (uncomment as needed)
-  # "spotify"
-  # "vlc"
+  # Fonts
+  "font-fira-code"
+  "font-fira-code-nerd-font"
+  "font-fira-mono-for-powerline"
+  "font-hack-nerd-font"
+  "font-jetbrains-mono-nerd-font"
+  "font-meslo-lg-nerd-font"
 ]

@@ -1,0 +1,234 @@
+// Zellij configuration file
+// This file is managed by Nix/Home-manager
+
+// Default shell
+default_shell "zsh"
+
+// Default layout
+default_layout "compact"
+
+// Theme configuration
+theme "default"
+
+// UI configuration
+ui {
+  pane_frames false
+  simplified_ui true
+  theme "default"
+}
+
+// Key bindings
+keybinds {
+  shared_except "locked" {
+    bind "Ctrl g" { SwitchToMode "Normal"; }
+    bind "Ctrl p" { SwitchToMode "Pane"; }
+    bind "Ctrl n" { SwitchToMode "Tab"; }
+    bind "Ctrl r" { SwitchToMode "Resize"; }
+    bind "Ctrl s" { SwitchToMode "Scroll"; }
+    bind "Ctrl b" { SwitchToMode "Session"; }
+    bind "Ctrl o" { SwitchToMode "Move"; }
+    bind "Ctrl t" { NewTab; }
+    bind "Ctrl w" { CloseFocus; }
+    bind "Alt n" { NewPane; SwitchToMode "Normal"; }
+    bind "Alt h" { MoveFocus "Left"; }
+    bind "Alt j" { MoveFocus "Down"; }
+    bind "Alt k" { MoveFocus "Up"; }
+    bind "Alt l" { MoveFocus "Right"; }
+    bind "Alt ==" { SplitPane "Down"; }
+    bind "Alt -" { SplitPane "Right"; }
+    bind "Alt [" { PreviousTab; }
+    bind "Alt ]" { NextTab; }
+    bind "Alt 1" { GoToTab 1; }
+    bind "Alt 2" { GoToTab 2; }
+    bind "Alt 3" { GoToTab 3; }
+    bind "Alt 4" { GoToTab 4; }
+    bind "Alt 5" { GoToTab 5; }
+    bind "Alt 6" { GoToTab 6; }
+    bind "Alt 7" { GoToTab 7; }
+    bind "Alt 8" { GoToTab 8; }
+    bind "Alt 9" { GoToTab 9; }
+    bind "Alt 0" { GoToTab 10; }
+  }
+  
+  shared_except "pane" {
+    bind "Alt 1" { NewPane; SwitchToMode "Normal"; }
+    bind "Alt 2" { NewPane "Down"; SwitchToMode "Normal"; }
+    bind "Alt 3" { NewPane "Right"; SwitchToMode "Normal"; }
+    bind "Alt 4" { NewPane "Down" "Right"; SwitchToMode "Normal"; }
+    bind "Alt 5" { NewPane "Down" "Left"; SwitchToMode "Normal"; }
+    bind "Alt 6" { NewPane "Up" "Right"; SwitchToMode "Normal"; }
+    bind "Alt 7" { NewPane "Up" "Left"; SwitchToMode "Normal"; }
+    bind "Alt 8" { NewPane "Up"; SwitchToMode "Normal"; }
+    bind "Alt 9" { NewPane "Left"; SwitchToMode "Normal"; }
+    bind "Alt 0" { NewPane "Right"; SwitchToMode "Normal"; }
+  }
+  
+  shared_except "resize" {
+    bind "Alt h" { Resize "Increase Left"; }
+    bind "Alt j" { Resize "Increase Down"; }
+    bind "Alt k" { Resize "Increase Up"; }
+    bind "Alt l" { Resize "Increase Right"; }
+    bind "Alt H" { Resize "Decrease Left"; }
+    bind "Alt J" { Resize "Decrease Down"; }
+    bind "Alt K" { Resize "Decrease Up"; }
+    bind "Alt L" { Resize "Decrease Right"; }
+  }
+  
+  shared_except "scroll" {
+    bind "Alt h" { ScrollToBottom; }
+    bind "Alt j" { ScrollDown; }
+    bind "Alt k" { ScrollUp; }
+    bind "Alt l" { ScrollToTop; }
+    bind "Alt G" { ScrollToBottom; }
+    bind "Alt g" { ScrollToTop; }
+    bind "Alt u" { ScrollUp; }
+    bind "Alt d" { ScrollDown; }
+    bind "Alt b" { PageScrollUp; }
+    bind "Alt f" { PageScrollDown; }
+    bind "Alt y" { ScrollUp; }
+    bind "Alt e" { ScrollDown; }
+  }
+  
+  shared_except "session" {
+    bind "Alt d" { Detach; }
+    bind "Alt s" { SwitchToMode "Normal"; }
+    bind "Alt w" { CloseSession; }
+    bind "Alt [" { PreviousSession; }
+    bind "Alt ]" { NextSession; }
+  }
+  
+  shared_except "move" {
+    bind "Alt h" { MovePane "Left"; }
+    bind "Alt j" { MovePane "Down"; }
+    bind "Alt k" { MovePane "Up"; }
+    bind "Alt l" { MovePane "Right"; }
+  }
+  
+  shared_except "tab" {
+    bind "Alt h" { MoveTab "Left"; }
+    bind "Alt j" { MoveTab "Down"; }
+    bind "Alt k" { MoveTab "Up"; }
+    bind "Alt l" { MoveTab "Right"; }
+    bind "Alt r" { RenameTab; }
+    bind "Alt 1" { GoToTab 1; }
+    bind "Alt 2" { GoToTab 2; }
+    bind "Alt 3" { GoToTab 3; }
+    bind "Alt 4" { GoToTab 4; }
+    bind "Alt 5" { GoToTab 5; }
+    bind "Alt 6" { GoToTab 6; }
+    bind "Alt 7" { GoToTab 7; }
+    bind "Alt 8" { GoToTab 8; }
+    bind "Alt 9" { GoToTab 9; }
+    bind "Alt 0" { GoToTab 10; }
+  }
+  
+  shared_except "locked" {
+    bind "Ctrl q" { Quit; }
+    bind "Alt q" { Quit; }
+  }
+}
+
+// Layouts
+layouts {
+  layout "compact" {
+    pane size=1 borderless=true {
+      plugin location="zellij:status-bar"
+    }
+    children
+    pane size=2 borderless=true {
+      plugin location="zellij:tab-bar"
+    }
+  }
+  
+  layout "tiled" {
+    pane split_direction="Vertical" {
+      pane split_direction="Horizontal" {
+        pane
+        pane
+      }
+      pane split_direction="Horizontal" {
+        pane
+        pane
+      }
+    }
+  }
+  
+  layout "stack" {
+    pane split_direction="Horizontal" {
+      pane
+      pane split_direction="Vertical" {
+        pane
+        pane
+      }
+    }
+  }
+}
+
+// Plugins
+plugins {
+  tab-bar { path "tab-bar"; }
+  status-bar { path "status-bar"; }
+  strider { path "strider"; }
+  compact-bar { path "compact-bar"; }
+}
+
+// Environment variables
+env {
+  ZELLIJ_AUTO_ATTACH true
+  ZELLIJ_AUTO_EXIT true
+}
+
+// Session configuration
+session {
+  auto_layout true
+  auto_name true
+  default_mode "Normal"
+  default_cwd "~"
+}
+
+// Pane configuration
+pane {
+  auto_close true
+  auto_close_on_exit true
+  focus_follows_mouse true
+  mouse_mode true
+  pane_frames false
+  pane_frames_fg "gray"
+  pane_frames_bg "black"
+  pane_frames_active_fg "green"
+  pane_frames_active_bg "black"
+}
+
+// Tab configuration
+tab {
+  auto_close true
+  auto_close_on_exit true
+  tab_bar true
+  tab_bar_fg "gray"
+  tab_bar_bg "black"
+  tab_bar_active_fg "green"
+  tab_bar_active_bg "black"
+}
+
+// Scroll configuration
+scroll {
+  scrollback_editor "vim"
+  scrollback_editor_args ["-u", "NONE", "-R", "-"]
+  scrollback_multiplier 3
+  scrollback_size 10000
+}
+
+// Mouse configuration
+mouse {
+  mode "Normal"
+  clickable_pane_indicators true
+  clickable_status_indicator true
+  clickable_tab_indicators true
+}
+
+// Performance configuration
+performance {
+  render_benchmark false
+  render_benchmark_fps 60
+  render_benchmark_frames 100
+} 

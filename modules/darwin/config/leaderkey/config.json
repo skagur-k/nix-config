@@ -1,0 +1,49 @@
+{
+  "actions": [
+    {
+      "actions": [
+        {
+          "key": "m",
+          "type": "application",
+          "value": "/Users/skagur/Applications/Chrome Apps.localized/Gmail.app"
+        },
+        {
+          "key": "c",
+          "type": "application",
+          "value": "/Users/skagur/Applications/Chrome Apps.localized/Google Calendar.app"
+        },
+        {
+          "key": "d",
+          "label": "Google Drive",
+          "type": "url",
+          "value": "https://drive.google.com/drive/my-drive"
+        }
+      ],
+      "iconPath": "tray",
+      "key": "g",
+      "label": "Google",
+      "type": "group"
+    },
+    {
+      "actions": [
+        {
+          "key": "y",
+          "label": "Youtube",
+          "type": "url",
+          "value": "https://youtube.com"
+        },
+        {
+          "key": "n",
+          "label": "Netflix",
+          "type": "url",
+          "value": "https://netflix.com"
+        }
+      ],
+      "iconPath": "link",
+      "key": "r",
+      "label": "Links",
+      "type": "group"
+    }
+  ],
+  "type": "group"
+}

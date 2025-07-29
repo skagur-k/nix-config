@@ -14,7 +14,6 @@ let
 in
 {
   imports = [
-    ./dock
   ];
 
   # It me
@@ -71,27 +70,6 @@ in
         # https://github.com/nix-community/home-manager/issues/3344
         manual.manpages.enable = false;
       };
-  };
-
-  # Fully declarative dock using the latest from Nix Store
-  local.dock = {
-    enable = true;
-    username = user;
-    entries = [
-      { path = "/Applications/Safari.app/"; }
-      { path = "/System/Applications/Messages.app/"; }
-      { path = "/System/Applications/Notes.app/"; }
-      { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
-      { path = "/System/Applications/Music.app/"; }
-      { path = "/System/Applications/Photos.app/"; }
-      { path = "/System/Applications/Photo Booth.app/"; }
-      { path = "/System/Applications/System Settings.app/"; }
-      {
-        path = "${config.users.users.${user}.home}/Downloads";
-        section = "others";
-        options = "--sort name --view grid --display stack";
-      }
-    ];
   };
 
 }

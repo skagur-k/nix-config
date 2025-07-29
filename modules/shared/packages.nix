@@ -3,57 +3,42 @@
 with pkgs;
 [
   # General packages for development and system management
-  alacritty
-  aspell
-  aspellDicts.en
-  bash-completion
   bat
   btop
   coreutils
   killall
-  neofetch
   openssh
-  sqlite
   wget
   zip
-
-  # Encryption and security tools
-  age
-  age-plugin-yubikey
-  gnupg
-  libfido2
-
-  # Cloud-related tools and SDKs
-  docker
-  docker-compose
-
-  # Media-related packages
-  dejavu_fonts
-  ffmpeg
-  fd
-  font-awesome
-  hack-font
-  noto-fonts
-  noto-fonts-emoji
-  meslo-lgs-nf
-
-  # Node.js development tools
-  nodejs_24
+  zoxide
+  just
+  du-dust
+  dua
 
   # Text and terminal utilities
+  eza
+  fzf
+  helix
   htop
-  hunspell
-  iftop
-  jetbrains-mono
   jq
   ripgrep
   starship
   tree
-  tmux
   unrar
   unzip
+  zellij
+  difftastic
+  fd
+  skim
 
   # Python packages
   python3
   virtualenv
+
+  # Development Packages
+  kubectl
+  kubectx
+  gh
+  terraform
+
 ]
