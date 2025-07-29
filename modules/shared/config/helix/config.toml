@@ -32,31 +32,3 @@ left = ["mode", "spacer", "diagnostics"]
 center = ["file-name"]
 right = ["spacer", "version-control", "spacer", "selections", "spacer", "position", "spacer", "file-encoding", "spacer", "file-type"]
 
-[keys.normal]
-"g" = "goto_line_start"
-"G" = "goto_line_end"
-"<C-d>" = "half_page_down"
-"<C-u>" = "half_page_up"
-"<C-f>" = "page_down"
-"<C-b>" = "page_up"
-
-[keys.normal.space]
-"w" = ":buffer-next"
-"b" = ":buffer-previous"
-"q" = ":quit"
-"h" = ":help"
-"f" = ":file-picker"
-"g" = ":grep"
-"t" = ":new"
-"v" = ":vsplit"
-"s" = ":split"
-
-[keys.insert]
-"<C-s>" = ":write"
-"<C-z>" = "undo"
-"<C-y>" = "redo"
-
-[keys.select]
-"<C-s>" = ":write"
-"<C-z>" = "undo"
-"<C-y>" = "redo"
