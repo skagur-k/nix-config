@@ -47,6 +47,7 @@ in
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
+    backupFileExtension = "backup";
     users.${user} =
       {
         pkgs,

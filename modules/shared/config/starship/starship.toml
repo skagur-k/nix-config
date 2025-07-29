@@ -1,180 +1,259 @@
-# Starship configuration file
-# This replaces the previous Powerlevel10k configuration
-
-# Add a blank line at the start of each prompt
-add_newline = true
-
-# Command timeout in milliseconds
-command_timeout = 1000
-
-# Character configuration
 [character]
-# The symbol shown before the command input
-success_symbol = "[❯](green)"
-# The symbol shown before the command input if the previous command failed
-error_symbol = "[❯](red)"
-# The symbol shown before the command input if the previous command failed and the shell is in vim normal mode
-vicmd_symbol = "[❮](blue)"
+success_symbol = "[>](bold green)"
+error_symbol = "[x](bold red)"
+vimcmd_symbol = "[<](bold green)"
 
-# Directory configuration
-[directory]
-# The number of parent folders to truncate the current directory to
-truncation_length = 3
-# The symbol to prefix the truncated directory with
-truncation_symbol = "…/"
-# The style for the directory module
-style = "blue"
+[git_commit]
+tag_symbol = " tag "
 
-# Git branch configuration
-[git_branch]
-# The symbol used before the branch name
-symbol = " "
-# The style for the git branch module
-style = "green"
-
-# Git status configuration
 [git_status]
-# The symbol for the branch ahead of the remote
-ahead = "⇡${count}"
-# The symbol for the branch behind the remote
-behind = "⇣${count}"
-# The symbol for the branch diverged from the remote
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-# The symbol for untracked files
-untracked = "?"
-# The symbol for stashed changes
-stashed = "≡"
-# The symbol for modified files
-modified = "!"
-# The symbol for staged files
-staged = "+"
-# The symbol for renamed files
-renamed = "»"
-# The symbol for deleted files
-deleted = "✘"
-# The style for the git status module
-style = "red"
+ahead = ">"
+behind = "<"
+diverged = "<>"
+renamed = "r"
+deleted = "x"
 
-# Nix shell configuration
-[nix_shell]
-# The symbol used before displaying the nix shell
-symbol = " "
-# The style for the nix shell module
-style = "blue"
-# The text to show when in impure nix shell
-impure_msg = "impure"
-# The text to show when in pure nix shell
-pure_msg = "pure"
+[aws]
+symbol = "aws "
 
-# Python configuration
-[python]
-# The symbol used before displaying the version of Python
-symbol = " "
-# The style for the python module
-style = "yellow"
+[azure]
+symbol = "az "
 
-# Command duration configuration
-[cmd_duration]
-# The minimum time in milliseconds for showing the command duration
-min_time = 5000
-# The style for the cmd_duration module
-style = "yellow"
+[buf]
+symbol = "buf "
 
-# Hostname configuration
-[hostname]
-# Only show the hostname when connecting via SSH
-ssh_only = true
-# The style for the hostname module
-style = "dimmed"
+[bun]
+symbol = "bun "
 
-# Username configuration
-[username]
-# Show the username when it differs from the logged-in user
-show_always = false
-# The style for the username when not root
-style_user = "dimmed"
-# The style for the username when root
-style_root = "red"
+[c]
+symbol = "C "
 
-# Memory usage configuration
-[memory_usage]
-# The symbol used before displaying the memory usage
-symbol = " "
-# The style for the memory usage module
-style = "white"
-# The threshold for showing memory usage (in percent)
-threshold = 75
+[cpp]
+symbol = "C++ "
 
-# Battery configuration
-[battery]
-# The symbol used before displaying the battery level
-full_symbol = " "
-# The symbol used before displaying the battery level
-charging_symbol = " "
-# The symbol used before displaying the battery level
-discharging_symbol = " "
-# The symbol used before displaying the battery level
-unknown_symbol = " "
-# The symbol used before displaying the battery level
-empty_symbol = " "
-# The style for the battery module
-style = "green"
-# The threshold for showing battery level
-disabled = false
+[cobol]
+symbol = "cobol "
 
-# Time configuration
-[time]
-# The format string for the time module
-format = "at [$time]($style) "
-# The style for the time module
-style = "dimmed"
-# Whether to show the time module
-disabled = false
+[conda]
+symbol = "conda "
 
-# Kubernetes configuration
-[kubernetes]
-# The symbol used before displaying the Kubernetes context
-symbol = " "
-# The style for the kubernetes module
-style = "blue"
-# Whether to show the kubernetes module
-disabled = true
+[container]
+symbol = "container "
 
-# Docker context configuration
+[crystal]
+symbol = "cr "
+
+[cmake]
+symbol = "cmake "
+
+[daml]
+symbol = "daml "
+
+[dart]
+symbol = "dart "
+
+[deno]
+symbol = "deno "
+
+[dotnet]
+symbol = ".NET "
+
+[directory]
+read_only = " ro"
+
 [docker_context]
-# The symbol used before displaying the Docker context
-symbol = " "
-# The style for the docker context module
-style = "blue"
-# Whether to show the docker context module
-disabled = true
+symbol = "docker "
 
-# Node.js configuration
-[nodejs]
-# The symbol used before displaying the Node.js version
-symbol = " "
-# The style for the nodejs module
-style = "green"
+[elixir]
+symbol = "exs "
 
-# Rust configuration
-[rust]
-# The symbol used before displaying the Rust version
-symbol = " "
-# The style for the rust module
-style = "red"
+[elm]
+symbol = "elm "
 
-# Go configuration
+[fennel]
+symbol = "fnl "
+
+[fossil_branch]
+symbol = "fossil "
+
+[gcloud]
+symbol = "gcp "
+
+[git_branch]
+symbol = "git "
+
+[gleam]
+symbol = "gleam "
+
 [golang]
-# The symbol used before displaying the Go version
-symbol = " "
-# The style for the golang module
-style = "cyan"
+symbol = "go "
 
-# Package configuration
+[gradle]
+symbol = "gradle "
+
+[guix_shell]
+symbol = "guix "
+
+[haskell]
+symbol = "haskell "
+
+[helm]
+symbol = "helm "
+
+[hg_branch]
+symbol = "hg "
+
+[java]
+symbol = "java "
+
+[julia]
+symbol = "jl "
+
+[kotlin]
+symbol = "kt "
+
+[lua]
+symbol = "lua "
+
+[nodejs]
+symbol = "nodejs "
+
+[memory_usage]
+symbol = "memory "
+
+[meson]
+symbol = "meson "
+
+[nats]
+symbol = "nats "
+
+[nim]
+symbol = "nim "
+
+[nix_shell]
+symbol = "nix "
+
+[ocaml]
+symbol = "ml "
+
+[opa]
+symbol = "opa "
+
+[os.symbols]
+AIX = "aix "
+Alpaquita = "alq "
+AlmaLinux = "alma "
+Alpine = "alp "
+Amazon = "amz "
+Android = "andr "
+Arch = "rch "
+Artix = "atx "
+Bluefin = "blfn "
+CachyOS = "cach "
+CentOS = "cent "
+Debian = "deb "
+DragonFly = "dfbsd "
+Emscripten = "emsc "
+EndeavourOS = "ndev "
+Fedora = "fed "
+FreeBSD = "fbsd "
+Garuda = "garu "
+Gentoo = "gent "
+HardenedBSD = "hbsd "
+Illumos = "lum "
+Kali = "kali "
+Linux = "lnx "
+Mabox = "mbox "
+Macos = "mac "
+Manjaro = "mjo "
+Mariner = "mrn "
+MidnightBSD = "mid "
+Mint = "mint "
+NetBSD = "nbsd "
+NixOS = "nix "
+Nobara = "nbra "
+OpenBSD = "obsd "
+OpenCloudOS = "ocos "
+openEuler = "oeul "
+openSUSE = "osuse "
+OracleLinux = "orac "
+Pop = "pop "
+Raspbian = "rasp "
+Redhat = "rhl "
+RedHatEnterprise = "rhel "
+RockyLinux = "rky "
+Redox = "redox "
+Solus = "sol "
+SUSE = "suse "
+Ubuntu = "ubnt "
+Ultramarine = "ultm "
+Unknown = "unk "
+Uos = "uos "
+Void = "void "
+Windows = "win "
+
 [package]
-# The symbol used before displaying the package version
-symbol = " "
-# The style for the package module
-style = "purple"
-# Whether to show the package module
-disabled = true 
+symbol = "pkg "
+
+[perl]
+symbol = "pl "
+
+[php]
+symbol = "php "
+
+[pijul_channel]
+symbol = "pijul "
+
+[pixi]
+symbol = "pixi "
+
+[pulumi]
+symbol = "pulumi "
+
+[purescript]
+symbol = "purs "
+
+[python]
+symbol = "py "
+
+[quarto]
+symbol = "quarto "
+
+[raku]
+symbol = "raku "
+
+[rlang]
+symbol = "r "
+
+[ruby]
+symbol = "rb "
+
+[rust]
+symbol = "rs "
+
+[scala]
+symbol = "scala "
+
+[spack]
+symbol = "spack "
+
+[solidity]
+symbol = "solidity "
+
+[status]
+symbol = "[x](bold red) "
+
+[sudo]
+symbol = "sudo "
+
+[swift]
+symbol = "swift "
+
+[typst]
+symbol = "typst "
+
+[terraform]
+symbol = "terraform "
+
+[zig]
+symbol = "zig "

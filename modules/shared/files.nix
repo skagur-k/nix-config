@@ -6,11 +6,6 @@
     text = builtins.readFile ./config/starship/starship.toml;
   };
 
-  # Zsh configuration
-  ".zshrc" = {
-    text = builtins.readFile ./config/.zshrc;
-  };
-
   # Zsh aliases
   ".config/zsh/aliases.zsh" = {
     text = builtins.readFile ./config/zsh/aliases.zsh;
@@ -24,5 +19,10 @@
   # Zellij configuration
   ".config/zellij/config.kdl" = {
     text = builtins.readFile ./config/zellij/zellij.kdl;
+  };
+
+  # Helix configuration
+  ".config/helix/config.toml" = {
+    text = builtins.readFile ./config/helix/config.toml;
   };
 }
