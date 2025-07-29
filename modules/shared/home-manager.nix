@@ -35,13 +35,6 @@ in
       # Remove history data we don't want to see
       export HISTIGNORE="pwd:ls:cd"
 
-      # Zellij autostart
-      if [[ -z "$ZELLIJ" ]]; then
-          if command -v zellij &> /dev/null; then
-              exec zellij attach --create
-          fi
-      fi
-
       # History configuration
       HISTSIZE=10000
       SAVEHIST=10000
@@ -51,17 +44,9 @@ in
       bindkey '^R' history-incremental-search-backward
       bindkey '^ ' autosuggest-accept
 
-      # Completion configuration
-      zstyle ':completion:*' menu select
-      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-
       # Set editor
       export EDITOR=helix
       export VISUAL=helix
-
-      # Set language
-      export LANG=en_US.UTF-8
-      export LC_ALL=en_US.UTF-8
     '';
   };
 
