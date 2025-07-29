@@ -24,13 +24,6 @@ if [[ -f ~/.config/zsh/functions.zsh ]]; then
     source ~/.config/zsh/functions.zsh
 fi
 
-# Zellij autostart
-if [[ -z "$ZELLIJ" ]]; then
-    if command -v zellij &> /dev/null; then
-        exec zellij attach --create
-    fi
-fi
-
 # History configuration
 HISTSIZE=10000
 SAVEHIST=10000
