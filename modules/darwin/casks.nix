@@ -2,7 +2,7 @@ _:
 
 [
   # Development Tools
-  "homebrew/cask/docker"
+  # "homebrew/cask/docker"
   "visual-studio-code"
 
   # Productivity Tools
@@ -14,7 +14,7 @@ _:
   # Communication Tools - Examples (uncomment as needed)
   # "discord"
   # "notion"
-  # "slack"
+  "slack"
   # "telegram"
   # "zoom"
 

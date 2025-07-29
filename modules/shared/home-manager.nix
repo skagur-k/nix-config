@@ -1,8 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-let name = "Namhyuck (James) Kim";
-    user = "skagur";
-    email = "namhyuck.james@gmail.com"; in
+let
+  name = "Namhyuck (James) Kim";
+  user = "skagur";
+  email = "namhyuck.james@gmail.com";
+in
 {
   # Shared shell configuration
   zsh = {
@@ -35,15 +42,6 @@ let name = "Namhyuck (James) Kim";
       # Remove history data we don't want to see
       export HISTIGNORE="pwd:ls:cd"
 
-      # Emacs is my editor
-      export ALTERNATE_EDITOR=""
-      export EDITOR="emacsclient -t"
-      export VISUAL="emacsclient -c -a emacs"
-
-      e() {
-          emacsclient -t "$@"
-      }
-
       # nix shortcuts
       shell() {
           nix-shell '<nixpkgs>' -A "$1"
@@ -68,7 +66,7 @@ let name = "Namhyuck (James) Kim";
     extraConfig = {
       init.defaultBranch = "main";
       core = {
-	    editor = "vim";
+        editor = "vim";
         autocrlf = "input";
       };
       pull.rebase = true;
@@ -78,8 +76,15 @@ let name = "Namhyuck (James) Kim";
 
   vim = {
     enable = true;
-    plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-startify vim-tmux-navigator ];
-    settings = { ignorecase = true; };
+    plugins = with pkgs.vimPlugins; [
+      vim-airline
+      vim-airline-themes
+      vim-startify
+      vim-tmux-navigator
+    ];
+    settings = {
+      ignorecase = true;
+    };
     extraConfig = ''
       "" General
       set number
@@ -184,8 +189,8 @@ let name = "Namhyuck (James) Kim";
 
       let g:airline_theme='bubblegum'
       let g:airline_powerline_fonts = 1
-      '';
-     };
+    '';
+  };
 
   alacritty = {
     enable = true;
@@ -247,12 +252,8 @@ let name = "Namhyuck (James) Kim";
   ssh = {
     enable = true;
     includes = [
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
-        "/home/${user}/.ssh/config_external"
-      )
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
-        "/Users/${user}/.ssh/config_external"
-      )
+      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux "/home/${user}/.ssh/config_external")
+      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin "/Users/${user}/.ssh/config_external")
     ];
     matchBlocks = {
       # Example SSH configuration for GitHub
@@ -280,7 +281,7 @@ let name = "Namhyuck (James) Kim";
       {
         plugin = power-theme;
         extraConfig = ''
-           set -g @tmux_power_theme 'gold'
+          set -g @tmux_power_theme 'gold'
         '';
       }
       {
@@ -351,6 +352,6 @@ let name = "Namhyuck (James) Kim";
       bind-key -T copy-mode-vi 'C-k' select-pane -U
       bind-key -T copy-mode-vi 'C-l' select-pane -R
       bind-key -T copy-mode-vi 'C-\' select-pane -l
-      '';
-    };
+    '';
+  };
 }

@@ -1,6 +1,7 @@
 { pkgs }:
 
-with pkgs; [
+with pkgs;
+[
   # General packages for development and system management
   alacritty
   aspell
@@ -27,7 +28,6 @@ with pkgs; [
   docker-compose
 
   # Media-related packages
-  emacs-all-the-icons-fonts
   dejavu_fonts
   ffmpeg
   fd
