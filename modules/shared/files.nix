@@ -1,5 +1,8 @@
 { pkgs, config, ... }:
 
 {
-  # Shared files configuration
+  # Starship configuration
+  ".config/starship.toml" = {
+    text = builtins.readFile ./config/starship.toml;
+  };
 }

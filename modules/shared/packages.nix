@@ -47,11 +47,11 @@ with pkgs;
   jetbrains-mono
   jq
   ripgrep
+  starship
   tree
   tmux
   unrar
   unzip
-  zsh-powerlevel10k
 
   # Python packages
   python3
