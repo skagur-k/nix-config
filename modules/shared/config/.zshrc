@@ -34,7 +34,7 @@ bindkey '\e[3~' delete-char              # Delete
 
 # Better history searching
 bindkey '^R' history-incremental-search-backward
-bindkey '^@' autosuggest-accept
+bindkey '^ ' autosuggest-accept
 
 # History configuration
 HISTSIZE=10000
