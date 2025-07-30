@@ -16,13 +16,6 @@ in
   imports = [
   ];
 
-  # It me
-  users.users.${user} = {
-    name = "${user}";
-    home = "/home/${user}";
-    shell = pkgs.zsh;
-  };
-
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;

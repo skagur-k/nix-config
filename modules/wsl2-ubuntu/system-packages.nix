@@ -2,7 +2,7 @@
 
 with pkgs;
 [
-  # Development tools
+  # Essential development tools
   gcc
   gnumake
   cmake
@@ -11,59 +11,20 @@ with pkgs;
   nodejs
   yarn
 
-  # System utilities
-  inotify-tools
-  procps
-  psmisc
-  lsof
-  strace
-  ltrace
-
-  # Network tools
-  nmap
-  netcat
-  socat
-  mtr
-  traceroute
-
-  # File management
-  rsync
-  unzip
-  zip
-  tar
-  gzip
-  bzip2
-  xz
-
-  # Text processing
-  jq
-  yq
-  xmlstarlet
-  csvkit
-
-  # Monitoring
-  iotop
-  iftop
-  nethogs
-  glances
-
-  # Security
-  openssl
-  gnupg
-  pass
-  sshfs
-
-  # Media
-  ffmpeg
-  imagemagick
-  poppler_utils
-
-  # Database
-  sqlite
-  postgresql
+  # Basic utilities
+  git
+  curl
+  wget
+  htop
+  tree
+  ripgrep
+  fd
+  bat
+  exa
+  fzf
+  tmux
 
   # Container tools
   docker
   docker-compose
-  podman
 ]

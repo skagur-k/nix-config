@@ -127,25 +127,24 @@
         }
       );
 
-      # NixOS configurations for WSL2 Ubuntu
-      nixosConfigurations = nixpkgs.lib.genAttrs linuxSystems (
+      # WSL2 configurations for Ubuntu
+      wslConfigurations = nixpkgs.lib.genAttrs linuxSystems (
         system:
         let
           user = "skagur";
         in
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = inputs;
-          modules = [
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-              };
-            }
-            ./hosts/wsl2-ubuntu
-          ];
+        {
+          ${user} = home-manager.lib.homeManagerConfiguration {
+            inherit system;
+            homeDirectory = "/home/${user}";
+            username = user;
+            configuration = {
+              imports = [
+                ../../modules/shared/home-manager.nix
+                ../../modules/wsl2-ubuntu/home-manager.nix
+              ];
+            };
+          };
         }
       );
     };
