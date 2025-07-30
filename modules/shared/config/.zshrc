@@ -1,6 +1,3 @@
-# Zsh configuration file
-# This file is managed by Nix/Home-manager
-
 # Load Nix environment
 if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
@@ -33,16 +30,8 @@ HISTFILE=~/.zsh_history
 bindkey '^R' history-incremental-search-backward
 bindkey '^ ' autosuggest-accept
 
-# Completion configuration
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-
 # Set editor
 export EDITOR=helix
 export VISUAL=helix
 
-# Set language
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
- 
+eval "$(zellij setup --generate-auto-start zsh)"
