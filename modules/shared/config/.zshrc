@@ -21,14 +21,14 @@ if [[ -f ~/.config/zsh/functions.zsh ]]; then
     source ~/.config/zsh/functions.zsh
 fi
 
+if [[ -f ~/.config/zsh/keybindings.zsh ]]; then
+    source ~/.config/zsh/keybindings.zsh
+fi
+
 # History configuration
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
-
-# Better history searching
-bindkey '^R' history-incremental-search-backward
-bindkey '^ ' autosuggest-accept
 
 # Set editor
 export EDITOR=helix
