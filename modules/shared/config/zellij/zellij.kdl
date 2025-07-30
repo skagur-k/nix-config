@@ -262,6 +262,312 @@ plugins {
 // eg. "file:/path/to/my-plugin.wasm"
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
+    status-bar
+}
+
+// Custom status bar configuration for better small screen support
+status-bar {
+    mode {
+        normal {
+            # Show minimal info on small screens
+            left {
+                # Session name (shortened)
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                # Separator
+                spacer {
+                    content " "
+                }
+                # Current tab name (shortened)
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                # Current mode
+                mode {
+                    content "mode"
+                    style { fg "#ff79c6" }
+                }
+            }
+            right {
+                # Pane count (compact)
+                pane_count {
+                    content "panes"
+                    style { fg "#50fa7b" }
+                }
+                # Separator
+                spacer {
+                    content " "
+                }
+                # Current time (short format)
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+        locked {
+            left {
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                spacer {
+                    content " "
+                }
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                mode {
+                    content "LOCKED"
+                    style { fg "#ff5555" }
+                }
+            }
+            right {
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+        pane {
+            left {
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                spacer {
+                    content " "
+                }
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                mode {
+                    content "pane"
+                    style { fg "#ff79c6" }
+                }
+            }
+            right {
+                pane_count {
+                    content "panes"
+                    style { fg "#50fa7b" }
+                }
+                spacer {
+                    content " "
+                }
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+        tab {
+            left {
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                spacer {
+                    content " "
+                }
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                mode {
+                    content "tab"
+                    style { fg "#ff79c6" }
+                }
+            }
+            right {
+                tab_count {
+                    content "tabs"
+                    style { fg "#50fa7b" }
+                }
+                spacer {
+                    content " "
+                }
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+        resize {
+            left {
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                spacer {
+                    content " "
+                }
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                mode {
+                    content "resize"
+                    style { fg "#ff79c6" }
+                }
+            }
+            right {
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+        move {
+            left {
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                spacer {
+                    content " "
+                }
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                mode {
+                    content "move"
+                    style { fg "#ff79c6" }
+                }
+            }
+            right {
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+        scroll {
+            left {
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                spacer {
+                    content " "
+                }
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                mode {
+                    content "scroll"
+                    style { fg "#ff79c6" }
+                }
+            }
+            right {
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+        search {
+            left {
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                spacer {
+                    content " "
+                }
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                mode {
+                    content "search"
+                    style { fg "#ff79c6" }
+                }
+            }
+            right {
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+        session {
+            left {
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                spacer {
+                    content " "
+                }
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                mode {
+                    content "session"
+                    style { fg "#ff79c6" }
+                }
+            }
+            right {
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+        tmux {
+            left {
+                session_name {
+                    content "session"
+                    style { fg "#6272a4" }
+                }
+                spacer {
+                    content " "
+                }
+                tab_name {
+                    content "tab"
+                    style { fg "#f8f8f2" }
+                }
+            }
+            center {
+                mode {
+                    content "tmux"
+                    style { fg "#ff79c6" }
+                }
+            }
+            right {
+                time {
+                    content "time"
+                    style { fg "#bd93f9" }
+                }
+            }
+        }
+    }
 }
  
 // Use a simplified UI without special fonts (arrow glyphs)

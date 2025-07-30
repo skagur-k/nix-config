@@ -1,6 +1,8 @@
 # Zsh aliases file
 # This file is managed by Nix/Home-manager
 
+alias nbs='nix run .#build-switch'
+
 # Use difftastic, syntax-aware diffing
 alias diff=difft
 
@@ -8,11 +10,6 @@ alias diff=difft
 alias ls='eza'
 alias ll='eza -la'
 alias la='eza -A'
-alias l='eza -CF'
-alias lt='eza --tree'
-alias llt='eza -la --tree'
-alias lsd='eza --only-dirs'
-alias lsf='eza --only-files'
 
 # Git aliases
 alias gs='git status'
@@ -106,6 +103,7 @@ alias cpuinfo='lscpu'
 
 # Kubernetes aliases (if you use K8s)
 alias k='kubectl'
+alias kx='kubectx'
 alias kg='kubectl get'
 alias kd='kubectl describe'
 alias kl='kubectl logs'
