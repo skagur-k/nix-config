@@ -53,7 +53,7 @@
             with pkgs;
             mkShell {
               nativeBuildInputs = with pkgs; [
-                zshInteractive
+                bashInteractive
                 git
               ];
               shellHook = with pkgs; ''
