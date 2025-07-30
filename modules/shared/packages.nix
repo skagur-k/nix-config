@@ -41,6 +41,4 @@ with pkgs;
 
   # Nix development tools
   nixpkgs-fmt
-  nix-linter
-
 ]
