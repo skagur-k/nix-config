@@ -5,30 +5,46 @@
 default:
     @just --list
 
+# Helper function to get correct system name
+get_system:
+    #!/usr/bin/env bash
+    if [[ "$(uname -m)" == "arm64" ]]; then
+        echo "aarch64-darwin"
+    elif [[ "$(uname -m)" == "x86_64" ]]; then
+        echo "x86_64-darwin"
+    else
+        echo "Unknown architecture: $(uname -m)"
+        exit 1
+    fi
+
 # Build the configuration for the current system
 build:
     #!/usr/bin/env bash
     echo "Building NixOS configuration..."
-    nix build .#darwinConfigurations.$(uname -m)-darwin.system
+    SYSTEM=$(just get_system)
+    nix build .#darwinConfigurations.$SYSTEM.system
 
 # Build and switch to the new configuration
 switch:
     #!/usr/bin/env bash
     echo "Building and switching to new configuration..."
-    nix build .#darwinConfigurations.$(uname -m)-darwin.system
+    SYSTEM=$(just get_system)
+    nix build .#darwinConfigurations.$SYSTEM.system
     ./result/sw/bin/darwin-rebuild switch --flake .
 
 # Apply configuration (runs the apply script)
 apply:
     #!/usr/bin/env bash
     echo "Applying configuration..."
-    ./apps/$(uname -m)-darwin/apply
+    SYSTEM=$(just get_system)
+    ./apps/$SYSTEM/apply
 
 # Rollback to previous configuration
 rollback:
     #!/usr/bin/env bash
     echo "Rolling back to previous configuration..."
-    ./apps/$(uname -m)-darwin/rollback
+    SYSTEM=$(just get_system)
+    ./apps/$SYSTEM/rollback
 
 # Check system configuration
 check:
@@ -50,6 +66,7 @@ info:
     echo "OS: $(uname -s)"
     echo "Hostname: $(hostname)"
     echo "User: $(whoami)"
+    echo "Nix System: $(just get_system)"
 
 # Clean build artifacts
 clean:
@@ -80,7 +97,8 @@ fmt:
 diff:
     #!/usr/bin/env bash
     echo "Showing configuration diff..."
-    nix build .#darwinConfigurations.$(uname -m)-darwin.system --dry-run
+    SYSTEM=$(just get_system)
+    nix build .#darwinConfigurations.$SYSTEM.system --dry-run
 
 # Backup current configuration
 backup:
