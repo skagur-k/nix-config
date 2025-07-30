@@ -30,7 +30,7 @@ switch:
     echo "Building and switching to new configuration..."
     SYSTEM=$(just get_system)
     nix build .#darwinConfigurations.$SYSTEM.system
-    ./result/sw/bin/darwin-rebuild switch --flake .
+    sudo ./result/sw/bin/darwin-rebuild switch --flake .
 
 # Apply configuration (runs the apply script)
 apply:
@@ -44,7 +44,7 @@ rollback:
     #!/usr/bin/env bash
     echo "Rolling back to previous configuration..."
     SYSTEM=$(just get_system)
-    ./apps/$SYSTEM/rollback
+    sudo ./apps/$SYSTEM/rollback
 
 # Check system configuration
 check:
@@ -123,9 +123,9 @@ help:
     @echo "NixOS Configuration Management Commands:"
     @echo ""
     @echo "  just build     - Build the configuration"
-    @echo "  just switch    - Build and switch to new configuration"
+    @echo "  just switch    - Build and switch to new configuration (requires sudo)"
     @echo "  just apply     - Apply configuration (interactive)"
-    @echo "  just rollback  - Rollback to previous configuration"
+    @echo "  just rollback  - Rollback to previous configuration (requires sudo)"
     @echo "  just check     - Check system configuration"
     @echo "  just update    - Update flake inputs"
     @echo "  just info      - Show system information"
@@ -138,5 +138,5 @@ help:
     @echo "  just restore <path> - Restore from backup"
     @echo ""
     @echo "Examples:"
-    @echo "  just switch    # Build and switch"
+    @echo "  just switch    # Build and switch (will prompt for sudo)"
     @echo "  just restore ../nixos-config-backup-20231201-143022" 
