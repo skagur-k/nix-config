@@ -3,6 +3,8 @@
 
 alias nbs='nix run .#build-switch'
 
+alias zj='zellij'
+
 # Use difftastic, syntax-aware diffing
 alias diff=difft
 
