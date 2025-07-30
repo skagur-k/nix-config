@@ -16,6 +16,11 @@
     text = builtins.readFile ./config/zsh/functions.zsh;
   };
 
+  # Zsh keybindings
+  ".config/zsh/keybindings.zsh" = {
+    text = builtins.readFile ./config/zsh/keybindings.zsh;
+  };
+
   # Zellij configuration
   ".config/zellij/config.kdl" = {
     text = builtins.readFile ./config/zellij/zellij.kdl;
