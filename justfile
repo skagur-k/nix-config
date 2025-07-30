@@ -76,12 +76,6 @@ fmt:
     echo "Formatting Nix files..."
     nixpkgs-fmt **/*.nix
 
-# Lint Nix files
-lint:
-    #!/usr/bin/env bash
-    echo "Linting Nix files..."
-    nix-linter **/*.nix
-
 # Show configuration diff
 diff:
     #!/usr/bin/env bash
@@ -121,7 +115,6 @@ help:
     @echo "  just deps      - Show flake dependencies"
     @echo "  just dev       - Enter development shell"
     @echo "  just fmt       - Format Nix files"
-    @echo "  just lint      - Lint Nix files"
     @echo "  just diff      - Show configuration diff"
     @echo "  just backup    - Backup current configuration"
     @echo "  just restore <path> - Restore from backup"
