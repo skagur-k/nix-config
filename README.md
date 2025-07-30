@@ -77,17 +77,42 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
 2. **Apply user information**:
    ```bash
-   nix run .#apply
+   just apply
    ```
 
 3. **Build and switch to the configuration**:
    ```bash
-   nix run .#build-switch
+   just switch
    ```
+
+**Alternative using traditional Nix commands:**
+```bash
+nix run .#apply
+nix run .#build-switch
+```
 
 ## 📋 Available Commands
 
-### Build and Deploy
+### Using Justfile (Recommended)
+The project includes a `justfile` for simplified command management. Run `just --list` to see all available commands.
+
+**Quick Commands:**
+- `just switch` - Build and switch to new configuration
+- `just apply` - Apply user information (interactive)
+- `just rollback` - Rollback to previous generation
+- `just check` - Check system configuration
+- `just update` - Update flake inputs
+- `just clean` - Clean build artifacts
+- `just help` - Show detailed help
+
+**Development Commands:**
+- `just fmt` - Format Nix files
+- `just lint` - Lint Nix files
+- `just diff` - Show configuration diff
+- `just backup` - Backup current configuration
+- `just restore <path>` - Restore from backup
+
+### Traditional Nix Commands
 - `nix run .#build` - Build configuration (test only)
 - `nix run .#build-switch` - Build and switch to new configuration
 - `nix run .#apply` - Apply user information
@@ -105,27 +130,33 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 1. **Edit configuration files** in the appropriate modules
 2. **Test the configuration**:
    ```bash
-   nix build .#darwinConfigurations.aarch64-darwin.system
+   just build
    ```
 3. **Apply changes**:
    ```bash
-   nix run .#build-switch
+   just switch
    ```
+
+**Alternative using traditional Nix commands:**
+```bash
+nix build .#darwinConfigurations.aarch64-darwin.system
+nix run .#build-switch
+```
 
 ### Common Change Scenarios
 
 #### Adding a Package
 1. Add to `modules/shared/packages.nix` (shared) or `modules/darwin/packages.nix` (macOS-only)
-2. Run `nix run .#build-switch`
+2. Run `just switch`
 
 #### Adding App Configuration
 1. Create config file in `modules/darwin/config/app-name/`
 2. Add to `modules/darwin/files.nix` to deploy it
-3. Run `nix run .#build-switch`
+3. Run `just switch`
 
 #### Modifying Shell Configuration
 1. Edit files in `modules/shared/config/zsh/`
-2. Run `nix run .#build-switch`
+2. Run `just switch`
 
 ## 🎨 Included Applications
 

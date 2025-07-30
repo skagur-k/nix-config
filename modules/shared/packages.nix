@@ -39,4 +39,8 @@ with pkgs;
   gh
   terraform
 
+  # Nix development tools
+  nixpkgs-fmt
+  nix-linter
+
 ]
