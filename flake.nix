@@ -42,7 +42,11 @@
         "aarch64-darwin"
         "x86_64-darwin"
       ];
-      forAllSystems = f: nixpkgs.lib.genAttrs darwinSystems f;
+      linuxSystems = [
+        "x86_64-linux"
+      ];
+      allSystems = darwinSystems ++ linuxSystems;
+      forAllSystems = f: nixpkgs.lib.genAttrs allSystems f;
       devShell =
         system:
         let
@@ -81,10 +85,18 @@
         "check-keys" = mkApp "check-keys" system;
         "rollback" = mkApp "rollback" system;
       };
+
+      mkLinuxApps = system: {
+        "apply" = mkApp "apply" system;
+        "build" = mkApp "build" system;
+        "build-switch" = mkApp "build-switch" system;
+        "rollback" = mkApp "rollback" system;
+      };
     in
     {
       devShells = forAllSystems devShell;
-      apps = nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
+      apps =
+        nixpkgs.lib.genAttrs darwinSystems mkDarwinApps // nixpkgs.lib.genAttrs linuxSystems mkLinuxApps;
 
       darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (
         system:
@@ -111,6 +123,28 @@
               };
             }
             ./hosts/darwin
+          ];
+        }
+      );
+
+      # NixOS configurations for WSL2 Ubuntu
+      nixosConfigurations = nixpkgs.lib.genAttrs linuxSystems (
+        system:
+        let
+          user = "skagur";
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = inputs;
+          modules = [
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+              };
+            }
+            ./hosts/wsl2-ubuntu
           ];
         }
       );

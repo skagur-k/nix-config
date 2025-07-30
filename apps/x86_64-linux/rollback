@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+RED='\033[1;31m'
+NC='\033[0m'
+
+SYSTEM_TYPE="x86_64-linux"
+
+echo "${YELLOW}Rolling back to previous generation...${NC}"
+sudo nixos-rebuild switch --rollback
+
+echo "${GREEN}Rollback complete!${NC}" 

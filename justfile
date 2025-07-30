@@ -8,12 +8,24 @@ default:
 # Helper function to get correct system name
 get_system:
     #!/usr/bin/env bash
-    if [[ "$(uname -m)" == "arm64" ]]; then
-        echo "aarch64-darwin"
-    elif [[ "$(uname -m)" == "x86_64" ]]; then
-        echo "x86_64-darwin"
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        if [[ "$(uname -m)" == "arm64" ]]; then
+            echo "aarch64-darwin"
+        elif [[ "$(uname -m)" == "x86_64" ]]; then
+            echo "x86_64-darwin"
+        else
+            echo "Unknown Darwin architecture: $(uname -m)"
+            exit 1
+        fi
+    elif [[ "$(uname -s)" == "Linux" ]]; then
+        if [[ "$(uname -m)" == "x86_64" ]]; then
+            echo "x86_64-linux"
+        else
+            echo "Unknown Linux architecture: $(uname -m)"
+            exit 1
+        fi
     else
-        echo "Unknown architecture: $(uname -m)"
+        echo "Unsupported operating system: $(uname -s)"
         exit 1
     fi
 
@@ -22,28 +34,28 @@ build:
     #!/usr/bin/env bash
     echo "Building NixOS configuration..."
     SYSTEM=$(just get_system)
-    ./apps/$SYSTEM/build
+    nix run .#$SYSTEM.build
 
 # Build and switch to the new configuration
 switch:
     #!/usr/bin/env bash
     echo "Building and switching to new configuration..."
     SYSTEM=$(just get_system)
-    ./apps/$SYSTEM/build-switch
+    nix run .#$SYSTEM.build-switch
 
 # Apply configuration (runs the apply script)
 apply:
     #!/usr/bin/env bash
     echo "Applying configuration..."
     SYSTEM=$(just get_system)
-    ./apps/$SYSTEM/apply
+    nix run .#$SYSTEM.apply
 
 # Rollback to previous configuration
 rollback:
     #!/usr/bin/env bash
     echo "Rolling back to previous configuration..."
     SYSTEM=$(just get_system)
-    ./apps/$SYSTEM/rollback
+    nix run .#$SYSTEM.rollback
 
 # Check system configuration
 check:
@@ -66,6 +78,9 @@ info:
     echo "Hostname: $(hostname)"
     echo "User: $(whoami)"
     echo "Nix System: $(just get_system)"
+    if [[ "$(uname -s)" == "Linux" ]]; then
+        echo "WSL2: $(cat /proc/version | grep -i microsoft > /dev/null && echo "Yes" || echo "No")"
+    fi
 
 # Clean build artifacts
 clean:
@@ -86,6 +101,32 @@ dev:
     echo "Entering development shell..."
     nix develop
 
+# WSL2-specific commands
+wsl2-info:
+    #!/usr/bin/env bash
+    echo "WSL2 Information:"
+    echo "WSL Version: $(wsl.exe --version 2>/dev/null || echo "WSL command not available")"
+    echo "Distribution: $(cat /etc/os-release | grep PRETTY_NAME | cut -d'"' -f2)"
+    echo "Kernel: $(uname -r)"
+    echo "WSL2: $(cat /proc/version | grep -i microsoft > /dev/null && echo "Yes" || echo "No")"
+
+# Check WSL2 configuration
+wsl2-check:
+    #!/usr/bin/env bash
+    echo "Checking WSL2 configuration..."
+    if [[ -f "/etc/wsl.conf" ]]; then
+        echo "✓ WSL2 configuration file exists"
+        cat /etc/wsl.conf
+    else
+        echo "✗ WSL2 configuration file not found"
+    fi
+    
+    if [[ "$DISPLAY" == ":0" ]]; then
+        echo "✓ DISPLAY variable set for GUI applications"
+    else
+        echo "✗ DISPLAY variable not set"
+    fi
+
 # Format Nix files
 fmt:
     #!/usr/bin/env bash
@@ -97,7 +138,11 @@ diff:
     #!/usr/bin/env bash
     echo "Showing configuration diff..."
     SYSTEM=$(just get_system)
-    nix build .#darwinConfigurations.$SYSTEM.system --dry-run
+    if [[ "$SYSTEM" == *"darwin"* ]]; then
+        nix build .#darwinConfigurations.$SYSTEM.system --dry-run
+    elif [[ "$SYSTEM" == *"linux"* ]]; then
+        nix build .#nixosConfigurations.$SYSTEM.config.system.build.toplevel --dry-run
+    fi
 
 # Backup current configuration
 backup:
@@ -135,6 +180,15 @@ help:
     @echo "  just diff      - Show configuration diff"
     @echo "  just backup    - Backup current configuration"
     @echo "  just restore <path> - Restore from backup"
+    @echo ""
+    @echo "WSL2-Specific Commands:"
+    @echo "  just wsl2-info  - Show WSL2 information"
+    @echo "  just wsl2-check - Check WSL2 configuration"
+    @echo ""
+    @echo "Supported Systems:"
+    @echo "  macOS (Apple Silicon) - aarch64-darwin"
+    @echo "  macOS (Intel)        - x86_64-darwin"
+    @echo "  WSL2 Ubuntu          - x86_64-linux"
     @echo ""
     @echo "Examples:"
     @echo "  just switch    # Build and switch"
