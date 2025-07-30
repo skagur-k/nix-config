@@ -127,8 +127,8 @@
         }
       );
 
-      # WSL2 configurations for Ubuntu
-      wslConfigurations = nixpkgs.lib.genAttrs linuxSystems (
+      # Configuration for Linux
+      homeConfigurations = nixpkgs.lib.genAttrs linuxSystems (
         system:
         let
           user = "skagur";
