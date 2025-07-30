@@ -57,7 +57,7 @@
                 git
               ];
               shellHook = with pkgs; ''
-                export EDITOR=helix
+                export EDITOR=vim
               '';
             };
         };

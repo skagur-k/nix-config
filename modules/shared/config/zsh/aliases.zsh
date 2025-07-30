@@ -1,8 +1,6 @@
 # Zsh aliases file
 # This file is managed by Nix/Home-manager
 
-alias nbs='nix run .#build-switch'
-
 alias zj='zellij'
 
 # Use difftastic, syntax-aware diffing
