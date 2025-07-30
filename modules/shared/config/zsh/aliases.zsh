@@ -7,6 +7,7 @@ alias zj='zellij'
 
 # Use difftastic, syntax-aware diffing
 alias diff=difft
+alias du=dust
 
 # Use eza instead of ls
 alias ls='eza'
