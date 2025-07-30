@@ -25,9 +25,9 @@ with pkgs;
   unrar
   unzip
   zellij
-  difftastic
   fd
   skim
+  delta
 
   # Python packages
   python3

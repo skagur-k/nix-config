@@ -9,6 +9,9 @@ alias zj='zellij'
 alias diff=difft
 alias du=dust
 
+# Use bat instead of cat
+alias cat='bat'
+
 # Use eza instead of ls
 alias ls='eza'
 alias ll='eza -la'
