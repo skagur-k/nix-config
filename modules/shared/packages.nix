@@ -17,12 +17,10 @@ with pkgs;
 
   # Text and terminal utilities
   eza
-  fzf
   helix
   htop
   jq
   ripgrep
-  starship
   tree
   unrar
   unzip
