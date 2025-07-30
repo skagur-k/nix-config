@@ -1,7 +1,7 @@
 theme = ayu
 
-font-family = JetBrains Mono
-font-family-bold = JetBrains Mono
+font-family = FiraCode Nerd Font Mono
+font-family-bold = FiraCode Nerd Font Mono
 font-size = 14
 font-thicken = true
 
