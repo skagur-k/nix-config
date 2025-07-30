@@ -20,7 +20,6 @@ in
   users.users.${user} = {
     name = "${user}";
     home = "/home/${user}";
-    isHidden = false;
     shell = pkgs.zsh;
   };
 
