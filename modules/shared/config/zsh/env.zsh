@@ -1,8 +1,9 @@
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git"
 export FZF_DEFAULT_OPTS="--height 40% --border"
 
-export SKIM_DEFAULT_COMMAND='eza --all --color=always'
-export SKIM_DEFAULT_OPTIONS='--ansi --height 40% --border'
+export SKIM_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+export SKIM_DEFAULT_OPTIONS='--ansi --height 40% --border --preview ([[ -d {} ]] && eza -lah --color=always {} || bat --style=numbers --color=always --line-range :500 {})'
+
 # Set editor
 export EDITOR=helix
 export VISUAL=helix
