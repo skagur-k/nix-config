@@ -6,11 +6,6 @@
     text = builtins.readFile ./config/starship/starship.toml;
   };
 
-  # .zshrc
-  ".zshrc" = {
-    text = builtins.readFile ./config/zsh/.zshrc;
-  };
-
   # Zsh aliases
   ".config/zsh/aliases.zsh" = {
     text = builtins.readFile ./config/zsh/aliases.zsh;

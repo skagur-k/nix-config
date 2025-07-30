@@ -18,9 +18,7 @@ in
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     autocd = false;
-
-    # Custom zsh configuration
-    initContent = builtins.readFile ./config/zsh/aliases.zsh;
+    initContent = builtins.readFile ./config/zsh/.zshrc;
   };
 
   # Zoxide configuration
