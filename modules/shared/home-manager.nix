@@ -11,6 +11,7 @@ let
   email = "namhyuck.james@gmail.com";
 in
 {
+  programs = {
   # Shared shell configuration
   zsh = {
     enable = true;
@@ -70,5 +71,5 @@ in
       rebase.autoStash = true;
     };
   };
-
+  };
 }

@@ -11,6 +11,11 @@ let
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
+  imports = [
+    ../shared/default.nix
+    ../shared/home-manager.nix
+  ];
+
   home = {
     username = user;
     homeDirectory = "/home/${user}";
@@ -21,12 +26,10 @@ in
       sharedFiles
       additionalFiles
     ];
-  };
-
-  programs = { } // import ../shared/home-manager.nix { inherit config pkgs lib; };
-
-  # WSL2 specific environment variables
-  home.sessionVariables = {
-    WSLENV = "1";
+    
+    # WSL2 specific environment variables
+    sessionVariables = {
+      WSLENV = "1";
+    };
   };
 }
