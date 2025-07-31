@@ -22,7 +22,7 @@ in
       home = {
         enableNixpkgsReleaseCheck = false;
         packages = pkgs.callPackage ../../modules/linux/packages.nix { };
-        file = import ../../modules/linux/files.nix { inherit config pkgs; };
+        file = import ../../modules/shared/files.nix { inherit config pkgs; };
         stateVersion = "24.05";
       };
       programs = { } // import ../../modules/shared/home-manager.nix { inherit config pkgs lib; };

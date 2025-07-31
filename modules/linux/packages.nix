@@ -8,4 +8,4 @@ shared-packages
 ++ [
   # Linux-specific packages
   # Add any Linux-specific packages here if needed
-] 
+]
