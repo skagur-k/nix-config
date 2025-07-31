@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "Rolling back Linux configuration..."
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+RED='\033[1;31m'
+NC='\033[0m'
+
+echo "${YELLOW}Rolling back Linux configuration...${NC}"
 home-manager rollback
-echo "Rollback completed!" 
+echo "${GREEN}Rollback completed!${NC}" 
