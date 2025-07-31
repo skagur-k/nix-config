@@ -34,28 +34,28 @@ build:
     #!/usr/bin/env bash
     echo "Building NixOS configuration..."
     SYSTEM=$(just get_system)
-    nix run .#$SYSTEM.build
+    nix run .#build
 
 # Build and switch to the new configuration
 switch:
     #!/usr/bin/env bash
     echo "Building and switching to new configuration..."
     SYSTEM=$(just get_system)
-    nix run .#$SYSTEM.build-switch
+    nix run .#build-switch
 
 # Apply configuration (runs the apply script)
 apply:
     #!/usr/bin/env bash
     echo "Applying configuration..."
     SYSTEM=$(just get_system)
-    nix run .#$SYSTEM.apply
+    nix run .#apply
 
 # Rollback to previous configuration
 rollback:
     #!/usr/bin/env bash
     echo "Rolling back to previous configuration..."
     SYSTEM=$(just get_system)
-    nix run .#$SYSTEM.rollback
+    nix run .#rollback
 
 # Check system configuration
 check:
