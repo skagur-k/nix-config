@@ -6,7 +6,7 @@ RED='\033[1;31m'
 NC='\033[0m'
 
 SYSTEM_TYPE="x86_64-linux"
-FLAKE_SYSTEM="nixosConfigurations.${SYSTEM_TYPE}.system"
+FLAKE_SYSTEM="homeConfigurations.${SYSTEM_TYPE}.system"
 
 export NIXPKGS_ALLOW_UNFREE=1
 
