@@ -141,6 +141,7 @@
             configuration = {
               imports = [
                 ../../modules/shared/home-manager.nix
+                ../../modules/linux/home-manager.nix
               ];
             };
           };

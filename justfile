@@ -157,6 +157,7 @@ help:
     @echo "Supported Systems:"
     @echo "  macOS (Apple Silicon) - aarch64-darwin"
     @echo "  macOS (Intel)        - x86_64-darwin"
+    @echo "  Linux (WSL2)         - x86_64-linux"
     @echo ""
     @echo "Examples:"
     @echo "  just switch    # Build and switch"

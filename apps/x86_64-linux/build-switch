@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Building and switching to Linux configuration..."
+nix build .#homeConfigurations.skagur.activationPackage
+./result/activate
+echo "Configuration applied successfully!" 

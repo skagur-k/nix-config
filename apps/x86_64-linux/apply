@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Applying Linux configuration..."
+echo "This will install packages and configure your environment."
+read -p "Continue? (y/N): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    nix build .#homeConfigurations.skagur.activationPackage
+    ./result/activate
+    echo "Configuration applied successfully!"
+else
+    echo "Operation cancelled."
+    exit 1
+fi 

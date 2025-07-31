@@ -1,11 +1,11 @@
-# NixOS Configuration for macOS
+# NixOS Configuration for macOS and Linux (WSL2)
 
-A comprehensive NixOS configuration for macOS using nix-darwin. This configuration provides a declarative, reproducible setup with modern development tools, terminal customization, and system management.
+A comprehensive NixOS configuration for macOS using nix-darwin and Linux using home-manager. This configuration provides a declarative, reproducible setup for both platforms with modern development tools, terminal customization, and system management.
 
 ## �� Features
 
 - **Declarative Configuration**: All system settings, packages, and configurations are defined in Nix
-- **Cross-Platform**: Shared modules work across macOS systems
+- **Cross-Platform**: Shared modules work across macOS and Linux (WSL2)
 - **Modern Development Stack**: Includes tools like Helix, Zellij, Starship, and more
 - **Smart Directory Navigation**: Zoxide integration for intelligent directory jumping
 - **Terminal Customization**: Ghostty terminal with modern theming
@@ -22,9 +22,11 @@ nixos-config/
 ├── flake.lock               # Locked dependencies
 ├── apps/                    # Build and deployment scripts
 │   ├── aarch64-darwin/     # Apple Silicon scripts
-│   └── x86_64-darwin/      # Intel Mac scripts
+│   ├── x86_64-darwin/      # Intel Mac scripts
+│   └── x86_64-linux/       # Linux (WSL2) scripts
 ├── hosts/                   # System-specific configurations
-│   └── darwin/             # macOS host configuration
+│   ├── darwin/             # macOS host configuration
+│   └── linux/              # Linux host configuration
 ├── modules/                 # Reusable configuration modules
 │   ├── darwin/             # macOS-specific modules
 │   │   ├── config/         # App configurations (Ghostty, LeaderKey)
@@ -32,6 +34,11 @@ nixos-config/
 │   │   ├── files.nix       # Static file deployment
 │   │   ├── home-manager.nix # User configuration
 │   │   └── packages.nix    # macOS-specific packages
+│   ├── linux/              # Linux-specific modules
+│   │   ├── config/         # App configurations
+│   │   ├── files.nix       # Static file deployment
+│   │   ├── home-manager.nix # User configuration
+│   │   └── packages.nix    # Linux-specific packages
 │   └── shared/             # Cross-platform modules
 │       ├── config/         # Shared app configurations
 │       │   ├── helix/      # Helix editor config
@@ -48,6 +55,12 @@ nixos-config/
 
 ### macOS
 - **macOS** (Apple Silicon or Intel)
+- **Nix** with flakes enabled
+- **Git**
+
+### Linux (WSL2)
+- **Windows 10/11** with WSL2 enabled
+- **Ubuntu** distribution in WSL2
 - **Nix** with flakes enabled
 - **Git**
 
@@ -93,6 +106,24 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```bash
 nix run .#apply
 nix run .#build-switch
+```
+
+### Linux (WSL2)
+1. **Clone the repository**:
+   ```bash
+   git clone <your-repo-url> nixos-config
+   cd nixos-config
+   ```
+
+2. **Build and switch to the configuration**:
+   ```bash
+   ./apps/x86_64-linux/build-switch
+   ```
+
+**Alternative using traditional Nix commands:**
+```bash
+nix build .#homeConfigurations.skagur.activationPackage
+./result/activate
 ```
 
 

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Rolling back Linux configuration..."
+home-manager rollback
+echo "Rollback completed!" 
