@@ -19,7 +19,7 @@ _:
   "alt-tab"
   "leader-key"
   "bettertouchtool"
-  "mos"
+  "bettermouse"
   "karabiner-elements"
   "hiddenbar"
 
