@@ -139,8 +139,8 @@
           username = user;
           configuration = {
             imports = [
-              ../../modules/shared/home-manager.nix
-              ../../modules/linux/home-manager.nix
+              ./modules/shared/home-manager.nix
+              ./modules/linux/home-manager.nix
             ];
           };
         }
