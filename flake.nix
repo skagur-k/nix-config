@@ -137,16 +137,13 @@
           let
             user = "skagur";
           in
-          home-manager.lib.homeManagerConfiguration
-            {
-              pkgs = nixpkgs.legacyPackages.${system};
-            }
-            {
-              imports = [
-                ./modules/shared/home-manager.nix
-                ./modules/linux/home-manager.nix
-              ];
-            }
+          home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            modules = [
+              ./modules/shared/home-manager.nix
+              ./modules/linux/home-manager.nix
+            ];
+          }
         );
       };
     };
