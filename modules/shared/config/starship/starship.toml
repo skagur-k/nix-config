@@ -1,12 +1,11 @@
 format = """
-[┌─](bold blue)$username$hostname$directory$git_branch$git_status$package$nix_shell$character
-[└─](bold blue)"""
+[┌─](bold blue) $username$hostname$directory$git_branch$git_status$package$nix_shell$character
+[└─](bold blue) """
 
 right_format = "$time"
 
 [time]
 disabled = false
-format = "%H:%M:%S"
 time_format = "%H:%M:%S"
 style = "bold blue"
 utc_time_offset = "local"
