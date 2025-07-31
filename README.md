@@ -1,11 +1,11 @@
-# NixOS Configuration for macOS and WSL2 Ubuntu
+# NixOS Configuration for macOS
 
-A comprehensive NixOS configuration for macOS using nix-darwin and WSL2 Ubuntu using NixOS. This configuration provides a declarative, reproducible setup for both platforms with modern development tools, terminal customization, and system management.
+A comprehensive NixOS configuration for macOS using nix-darwin. This configuration provides a declarative, reproducible setup with modern development tools, terminal customization, and system management.
 
 ## �� Features
 
 - **Declarative Configuration**: All system settings, packages, and configurations are defined in Nix
-- **Cross-Platform**: Shared modules work across macOS and WSL2 Ubuntu
+- **Cross-Platform**: Shared modules work across macOS systems
 - **Modern Development Stack**: Includes tools like Helix, Zellij, Starship, and more
 - **Smart Directory Navigation**: Zoxide integration for intelligent directory jumping
 - **Terminal Customization**: Ghostty terminal with modern theming
@@ -22,11 +22,9 @@ nixos-config/
 ├── flake.lock               # Locked dependencies
 ├── apps/                    # Build and deployment scripts
 │   ├── aarch64-darwin/     # Apple Silicon scripts
-│   ├── x86_64-darwin/      # Intel Mac scripts
-│   └── x86_64-linux/       # WSL2 Ubuntu scripts
+│   └── x86_64-darwin/      # Intel Mac scripts
 ├── hosts/                   # System-specific configurations
-│   ├── darwin/             # macOS host configuration
-│   └── wsl2-ubuntu/        # WSL2 Ubuntu host configuration
+│   └── darwin/             # macOS host configuration
 ├── modules/                 # Reusable configuration modules
 │   ├── darwin/             # macOS-specific modules
 │   │   ├── config/         # App configurations (Ghostty, LeaderKey)
@@ -34,7 +32,6 @@ nixos-config/
 │   │   ├── files.nix       # Static file deployment
 │   │   ├── home-manager.nix # User configuration
 │   │   └── packages.nix    # macOS-specific packages
-│   ├── wsl2-ubuntu/        # WSL2 Ubuntu-specific modules
 │   └── shared/             # Cross-platform modules
 │       ├── config/         # Shared app configurations
 │       │   ├── helix/      # Helix editor config
@@ -54,11 +51,7 @@ nixos-config/
 - **Nix** with flakes enabled
 - **Git**
 
-### WSL2 Ubuntu
-- **Windows 10/11** with WSL2 enabled
-- **Ubuntu** distribution in WSL2
-- **Nix** with flakes enabled
-- **Git**
+
 
 ### Installing Nix
 
@@ -102,22 +95,7 @@ nix run .#apply
 nix run .#build-switch
 ```
 
-### WSL2 Ubuntu
-1. **Clone the repository**:
-   ```bash
-   git clone <your-repo-url> nixos-config
-   cd nixos-config
-   ```
 
-2. **Build and switch to the configuration**:
-   ```bash
-   sudo nixos-rebuild switch --flake .#x86_64-linux
-   ```
-
-**Alternative using convenience scripts:**
-```bash
-./apps/x86_64-linux/build-switch
-```
 
 ## 📋 Available Commands
 
@@ -146,11 +124,7 @@ The project includes a `justfile` for simplified command management. Run `just -
 - `nix run .#apply` - Apply user information
 - `nix run .#rollback` - Rollback to previous generation
 
-### WSL2 Ubuntu Commands
-- `./apps/x86_64-linux/build` - Build configuration (test only)
-- `./apps/x86_64-linux/build-switch` - Build and switch to new configuration
-- `./apps/x86_64-linux/apply` - Apply configuration
-- `./apps/x86_64-linux/rollback` - Rollback to previous generation
+
 
 ### Development
 - `nix run .#check-keys` - Check SSH keys
@@ -211,7 +185,7 @@ nix run .#build-switch
 ### System Tools
 - **Homebrew**: Package manager for macOS
 - **LeaderKey**: Application launcher (macOS)
-- **Docker**: Container platform (WSL2 Ubuntu)
+- **Docker**: Container platform
 - **Various fonts**: Programming fonts including JetBrains Mono
 
 ## �� Troubleshooting
@@ -258,4 +232,4 @@ This configuration is provided as-is for personal use. Feel free to adapt it for
 - [Home Manager Manual](https://nix-community.github.io/home-manager/)
 - [NixOS Wiki](https://nixos.wiki/)
 - [Nix Package Search](https://search.nixos.org/)
-- [WSL2 Documentation](https://docs.microsoft.com/en-us/windows/wsl/)
+

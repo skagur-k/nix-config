@@ -27,7 +27,7 @@ display-messages = true
 display-inlay-hints = true
 
 [editor.statusline]
-# left = ["spacer", "diagnostics"]
+left = ["mode", "spacer", "diagnostics"]
 center = ["file-name"]
-right = ["spacer", "version-control", "spacer", "selections", "spacer", "position", "spacer", "file-encoding", "spacer", "file-type", "spacer", "mode"]
+right = ["spacer", "version-control", "spacer", "selections", "spacer", "position", "spacer", "file-encoding", "spacer", "file-type"]
 

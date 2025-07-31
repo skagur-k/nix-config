@@ -78,9 +78,6 @@ info:
     echo "Hostname: $(hostname)"
     echo "User: $(whoami)"
     echo "Nix System: $(just get_system)"
-    if [[ "$(uname -s)" == "Linux" ]]; then
-        echo "WSL2: $(cat /proc/version | grep -i microsoft > /dev/null && echo "Yes" || echo "No")"
-    fi
 
 # Clean build artifacts
 clean:
@@ -101,31 +98,7 @@ dev:
     echo "Entering development shell..."
     nix develop
 
-# WSL2-specific commands
-wsl2-info:
-    #!/usr/bin/env bash
-    echo "WSL2 Information:"
-    echo "WSL Version: $(wsl.exe --version 2>/dev/null || echo "WSL command not available")"
-    echo "Distribution: $(cat /etc/os-release | grep PRETTY_NAME | cut -d'"' -f2)"
-    echo "Kernel: $(uname -r)"
-    echo "WSL2: $(cat /proc/version | grep -i microsoft > /dev/null && echo "Yes" || echo "No")"
 
-# Check WSL2 configuration
-wsl2-check:
-    #!/usr/bin/env bash
-    echo "Checking WSL2 configuration..."
-    if [[ -f "/etc/wsl.conf" ]]; then
-        echo "✓ WSL2 configuration file exists"
-        cat /etc/wsl.conf
-    else
-        echo "✗ WSL2 configuration file not found"
-    fi
-    
-    if [[ "$DISPLAY" == ":0" ]]; then
-        echo "✓ DISPLAY variable set for GUI applications"
-    else
-        echo "✗ DISPLAY variable not set"
-    fi
 
 # Format Nix files
 fmt:
@@ -181,14 +154,9 @@ help:
     @echo "  just backup    - Backup current configuration"
     @echo "  just restore <path> - Restore from backup"
     @echo ""
-    @echo "WSL2-Specific Commands:"
-    @echo "  just wsl2-info  - Show WSL2 information"
-    @echo "  just wsl2-check - Check WSL2 configuration"
-    @echo ""
     @echo "Supported Systems:"
     @echo "  macOS (Apple Silicon) - aarch64-darwin"
     @echo "  macOS (Intel)        - x86_64-darwin"
-    @echo "  WSL2 Ubuntu          - x86_64-linux"
     @echo ""
     @echo "Examples:"
     @echo "  just switch    # Build and switch"

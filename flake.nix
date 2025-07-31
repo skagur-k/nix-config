@@ -141,7 +141,6 @@
             configuration = {
               imports = [
                 ../../modules/shared/home-manager.nix
-                ../../modules/wsl2-ubuntu/home-manager.nix
               ];
             };
           };
