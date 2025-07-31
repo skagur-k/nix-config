@@ -63,7 +63,7 @@ in
     extraConfig = {
       init.defaultBranch = "main";
       core = {
-        editor = "helix";
+        editor = "hx";
         autocrlf = "input";
       };
       pull.rebase = true;

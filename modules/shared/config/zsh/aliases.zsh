@@ -120,14 +120,13 @@ alias kctxs='kubectl config get-contexts'
 # Editor aliases
 alias v='vim'
 alias nv='nvim'
-alias hx='helix'
 alias code='code'
 
 # Quick file editing
-alias zshrc='helix ~/.zshrc'
-alias vimrc='helix ~/.vimrc'
-alias bashrc='helix ~/.bashrc'
-alias sshconfig='helix ~/.ssh/config'
+alias zshrc='hx ~/.zshrc'
+alias vimrc='hx ~/.vimrc'
+alias bashrc='hx ~/.bashrc'
+alias sshconfig='hx ~/.ssh/config'
 
 # Utility aliases
 alias path='echo -e ${PATH//:/\\n}'

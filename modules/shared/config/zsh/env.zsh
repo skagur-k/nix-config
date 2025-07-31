@@ -5,8 +5,8 @@ export SKIM_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
 export SKIM_DEFAULT_OPTIONS='--ansi --height 40% --border --preview "if [ -d {} ]; then eza -lah --color=always {}; else bat --style=numbers --color=always --line-range :500 {}; fi"'
 
 # Set editor
-export EDITOR=helix
-export VISUAL=helix
+export EDITOR=hx
+export VISUAL=hx
 
 # Define variables for directories
 export PATH=$HOME/.pnpm-packages/bin:$HOME/.pnpm-packages:$PATH
