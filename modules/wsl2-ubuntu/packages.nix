@@ -14,12 +14,5 @@ shared-packages
   rustc
   cargo
   go
-  deno
 
-  # Additional utilities
-  tldr
-  cheat
-  navi
-  zoxide
-  starship
 ]

@@ -16,34 +16,20 @@ in
   imports = [
   ];
 
-  # Enable home-manager
-  home-manager = {
-    useGlobalPkgs = true;
-    backupFileExtension = "backup";
-    verbose = false;
-    users.${user} =
-      {
-        pkgs,
-        config,
-        lib,
-        ...
-      }:
-      {
-        home = {
-          enableNixpkgsReleaseCheck = false;
-          packages = pkgs.callPackage ./packages.nix { };
-          file = lib.mkMerge [
-            sharedFiles
-            additionalFiles
-          ];
-          stateVersion = "23.11";
-        };
-        programs = { } // import ../shared/home-manager.nix { inherit config pkgs lib; };
-      };
+  home = {
+    enableNixpkgsReleaseCheck = false;
+    packages = pkgs.callPackage ./packages.nix { };
+    file = lib.mkMerge [
+      sharedFiles
+      additionalFiles
+    ];
+    stateVersion = "23.11";
   };
 
+  programs = { } // import ../shared/home-manager.nix { inherit config pkgs lib; };
+
   # WSL2 specific environment variables
-  environment.sessionVariables = {
+  home.sessionVariables = {
     WSLENV = "1";
     DISPLAY = ":0";
   };
