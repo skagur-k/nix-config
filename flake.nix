@@ -128,22 +128,24 @@
       );
 
       # Configuration for Linux
-      homeConfigurations = nixpkgs.lib.genAttrs linuxSystems (
-        system:
-        let
-          user = "skagur";
-        in
-        home-manager.lib.homeManagerConfiguration {
-          inherit system;
-          homeDirectory = "/home/${user}";
-          username = user;
-          configuration = {
-            imports = [
-              ./modules/shared/home-manager.nix
-              ./modules/linux/home-manager.nix
-            ];
-          };
-        }
-      );
+      homeConfigurations = {
+        skagur = nixpkgs.lib.genAttrs linuxSystems (
+          system:
+          let
+            user = "skagur";
+          in
+          home-manager.lib.homeManagerConfiguration {
+            inherit system;
+            homeDirectory = "/home/${user}";
+            username = user;
+            configuration = {
+              imports = [
+                ./modules/shared/home-manager.nix
+                ./modules/linux/home-manager.nix
+              ];
+            };
+          }
+        );
+      };
     };
 }
