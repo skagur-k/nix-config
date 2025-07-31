@@ -136,12 +136,11 @@
           in
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
-            configuration = {
-              imports = [
-                ./modules/shared/home-manager.nix
-                ./modules/linux/home-manager.nix
-              ];
-            };
+          } {
+            imports = [
+              ./modules/shared/home-manager.nix
+              ./modules/linux/home-manager.nix
+            ];
           }
         );
       };
