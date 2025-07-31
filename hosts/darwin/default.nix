@@ -10,6 +10,9 @@ in
     ../../modules/shared
   ];
 
+  # Set the hostname
+  networking.hostName = "skagur-mba";
+
   nix = {
     enable = false; # Disable nix-darwin's Nix management for Determinate compatibility
     package = pkgs.nix;
