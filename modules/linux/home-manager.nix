@@ -26,7 +26,7 @@ in
       sharedFiles
       additionalFiles
     ];
-    
+
     # WSL2 specific environment variables
     sessionVariables = {
       WSLENV = "1";
