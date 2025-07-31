@@ -3,7 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -134,14 +137,16 @@
           let
             user = "skagur";
           in
-          home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.${system};
-          } {
-            imports = [
-              ./modules/shared/home-manager.nix
-              ./modules/linux/home-manager.nix
-            ];
-          }
+          home-manager.lib.homeManagerConfiguration
+            {
+              pkgs = nixpkgs.legacyPackages.${system};
+            }
+            {
+              imports = [
+                ./modules/shared/home-manager.nix
+                ./modules/linux/home-manager.nix
+              ];
+            }
         );
       };
     };
