@@ -133,17 +133,15 @@
         let
           user = "skagur";
         in
-        {
-          ${user} = home-manager.lib.homeManagerConfiguration {
-            inherit system;
-            homeDirectory = "/home/${user}";
-            username = user;
-            configuration = {
-              imports = [
-                ../../modules/shared/home-manager.nix
-                ../../modules/linux/home-manager.nix
-              ];
-            };
+        home-manager.lib.homeManagerConfiguration {
+          inherit system;
+          homeDirectory = "/home/${user}";
+          username = user;
+          configuration = {
+            imports = [
+              ../../modules/shared/home-manager.nix
+              ../../modules/linux/home-manager.nix
+            ];
           };
         }
       );
