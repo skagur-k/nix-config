@@ -136,8 +136,6 @@
           in
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
-            homeDirectory = "/home/${user}";
-            username = user;
             configuration = {
               imports = [
                 ./modules/shared/home-manager.nix
