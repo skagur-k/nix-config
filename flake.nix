@@ -136,6 +136,7 @@
           in
           home-manager.lib.homeManagerConfiguration {
             inherit system;
+            pkgs = nixpkgs.legacyPackages.${system};
             homeDirectory = "/home/${user}";
             username = user;
             configuration = {
