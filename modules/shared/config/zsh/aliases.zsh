@@ -2,6 +2,7 @@
 # This file is managed by Nix/Home-manager
 
 alias js='just switch'
+alias ncc='check_nix_config_status'
 
 # Use difftastic, syntax-aware diffing
 alias diff=difft

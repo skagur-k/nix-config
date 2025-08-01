@@ -94,12 +94,13 @@ check_nix_config_status() {
                         echo "   (and $ahead_count commit(s) ahead)"
                     fi
                     echo ""
-                    echo -n "   Would you like to pull the latest changes? (y/N): "
+                    echo -n "   Would you like to pull and switch to the latest changes? (y/N): "
                     read -r response
                     if [[ "$response" =~ ^[Yy]$ ]]; then
                         if [[ "$ahead_count" -gt 0 ]]; then
                             echo "   Running git pull --rebase..."
                             git -C "$nixos_config_path" pull --rebase
+                            just switch
                         else
                             echo "   Running git pull..."
                             git -C "$nixos_config_path" pull
