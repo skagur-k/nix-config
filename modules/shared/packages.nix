@@ -38,6 +38,7 @@ with pkgs;
   kubectx
   gh
   terraform
+  google-cloud-sdk
 
   # Nix development tools
   nixpkgs-fmt

@@ -10,6 +10,7 @@ auto-save = true
 auto-format = true
 bufferline = "multiple"
 color-modes = true
+true-color = true
 
 [editor.soft-wrap]
 enable = true

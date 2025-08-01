@@ -106,7 +106,7 @@ alias meminfo='free -l -h'
 alias cpuinfo='lscpu'
 
 # Kubernetes aliases (if you use K8s)
-alias k='kubectl'
+alias kc='kubectl'
 alias kx='kubectx'
 alias kg='kubectl get'
 alias kd='kubectl describe'

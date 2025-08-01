@@ -19,7 +19,7 @@ in
   home = {
     username = user;
     homeDirectory = "/home/${user}";
-    stateVersion = "24.05";
+    stateVersion = "25.05";
     enableNixpkgsReleaseCheck = false;
     packages = pkgs.callPackage ./packages.nix { };
     file = lib.mkMerge [
