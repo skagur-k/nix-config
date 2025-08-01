@@ -63,7 +63,7 @@ zoxide-query() {
 }
 
 # Check if nixos-config repo is behind origin
-check_nixos_config_status() {
+check_nix_config_status() {
     local nixos_config_path="$HOME/nixos-config"
     
     # Check if the nixos-config directory exists and is a git repository
@@ -111,6 +111,9 @@ check_nixos_config_status() {
                     echo "⬆️  Your nixos-config is $ahead_count commit(s) ahead of $upstream"
                     echo ""
                 fi
+            else
+                # Local and remote are in sync
+                echo "✅ Your nixos-config is up to date with $upstream"
             fi
         fi
     fi

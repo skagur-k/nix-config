@@ -1,11 +1,13 @@
 # Zsh aliases file
 # This file is managed by Nix/Home-manager
 
-alias zj='zellij'
+alias js='just switch'
+alias cu='check_nix_config_status'
 
 # Use difftastic, syntax-aware diffing
 alias diff=difft
 alias du=dust
+alias zj='zellij'
 
 # Use bat instead of cat
 alias cat='bat'
