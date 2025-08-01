@@ -11,6 +11,7 @@ _:
   "cleanshot"
   "obsidian"
   "todoist-app"
+  "brilliant"
 
   # Browsers
   "google-chrome"
