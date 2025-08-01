@@ -114,6 +114,7 @@ check_nix_config_status() {
                 fi
             else
                 # Local and remote are in sync
+                echo ""
                 echo "✅ Your nixos-config is up to date with $upstream"
             fi
         fi
