@@ -62,3 +62,57 @@ zoxide-query() {
     zoxide query "$1"
 }
 
+# Check if nixos-config repo is behind origin
+check_nixos_config_status() {
+    local nixos_config_path="$HOME/nixos-config"
+    
+    # Check if the nixos-config directory exists and is a git repository
+    if [[ -d "$nixos_config_path" ]] && git -C "$nixos_config_path" rev-parse --git-dir > /dev/null 2>&1; then
+        # Fetch from origin quietly
+        git -C "$nixos_config_path" fetch origin > /dev/null 2>&1
+        
+        # Get current branch
+        local current_branch=$(git -C "$nixos_config_path" branch --show-current)
+        
+        # Check if current branch has an upstream
+        local upstream=$(git -C "$nixos_config_path" rev-parse --abbrev-ref "$current_branch@{upstream}" 2>/dev/null)
+        
+        if [[ -n "$upstream" ]]; then
+            # Compare local HEAD with upstream
+            local local_commit=$(git -C "$nixos_config_path" rev-parse HEAD)
+            local remote_commit=$(git -C "$nixos_config_path" rev-parse "$upstream")
+            
+            if [[ "$local_commit" != "$remote_commit" ]]; then
+                # Check if local is behind remote
+                local behind_count=$(git -C "$nixos_config_path" rev-list --count HEAD.."$upstream" 2>/dev/null)
+                local ahead_count=$(git -C "$nixos_config_path" rev-list --count "$upstream"..HEAD 2>/dev/null)
+                
+                if [[ "$behind_count" -gt 0 ]]; then
+                    echo ""
+                    echo "🔄 Your nixos-config is $behind_count commit(s) behind $upstream"
+                    if [[ "$ahead_count" -gt 0 ]]; then
+                        echo "   (and $ahead_count commit(s) ahead)"
+                    fi
+                    echo ""
+                    echo -n "   Would you like to pull the latest changes? (y/N): "
+                    read -r response
+                    if [[ "$response" =~ ^[Yy]$ ]]; then
+                        if [[ "$ahead_count" -gt 0 ]]; then
+                            echo "   Running git pull --rebase..."
+                            git -C "$nixos_config_path" pull --rebase
+                        else
+                            echo "   Running git pull..."
+                            git -C "$nixos_config_path" pull
+                        fi
+                    fi
+                    echo ""
+                elif [[ "$ahead_count" -gt 0 ]]; then
+                    echo ""
+                    echo "⬆️  Your nixos-config is $ahead_count commit(s) ahead of $upstream"
+                    echo ""
+                fi
+            fi
+        fi
+    fi
+}
+

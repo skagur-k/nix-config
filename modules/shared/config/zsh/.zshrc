@@ -30,4 +30,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
+# Check nixos-config git status on startup
+check_nixos_config_status
+
 # eval "$(zellij setup --generate-auto-start zsh)"
