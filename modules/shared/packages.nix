@@ -39,6 +39,7 @@ with pkgs;
   gh
   terraform
   google-cloud-sdk
+  k9s
 
   # Nix development tools
   nixpkgs-fmt
