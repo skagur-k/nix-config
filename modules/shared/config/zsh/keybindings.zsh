@@ -8,3 +8,5 @@ bindkey '\e[3~' delete-char              # Delete
 # Better history searching
 bindkey '^R' history-incremental-search-backward
 bindkey '^ ' autosuggest-accept
+
+bindkey '^p' check_nix_config_status
