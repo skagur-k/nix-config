@@ -1,5 +1,5 @@
 format = """
-[┌─](bold blue) $username$hostname$directory$git_branch$git_status$package$nix_shell$character
+[┌─](bold blue) $username$hostname$directory$git_branch$git_status$package$nix_shell$kubernetes$character
 [└─](bold blue) """
 
 right_format = "$time"
@@ -270,3 +270,16 @@ symbol = "terraform "
 
 [zig]
 symbol = "zig "
+
+[kubernetes]
+disabled = false
+symbol = "* "
+format = '[$symbol$context]($style) '
+style = "dimmed blue"
+
+# Optional: Add context aliases if you want to shorten long names
+[kubernetes.context_aliases]
+"dev.local.cluster.k8s" = "dev"
+"staging.local.cluster.k8s" = "staging"
+
+[kubernetes.user_aliases]
