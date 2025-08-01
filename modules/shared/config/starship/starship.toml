@@ -1,12 +1,13 @@
 format = """
-[┌─](bold blue) $username$hostname$directory$git_branch$git_status$package$nix_shell$kubernetes$character
-[└─](bold blue) """
+[┌─](bold blue) $username$hostname$directory$git_branch$git_status$package$nix_shell$kubernetes
+[└─](bold blue) $character"""
 
 right_format = "$time"
 
 [time]
 disabled = false
 time_format = "%H:%M:%S"
+format = "[$time]($style)"
 style = "bold blue"
 utc_time_offset = "local"
 time_range = "-"
@@ -93,7 +94,7 @@ symbol = "fossil "
 symbol = "gcp "
 
 [git_branch]
-symbol = "git "
+symbol = ""
 
 [gleam]
 symbol = "gleam "
