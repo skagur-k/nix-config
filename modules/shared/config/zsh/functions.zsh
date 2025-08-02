@@ -62,34 +62,56 @@ zoxide-query() {
     zoxide query "$1"
 }
 
-# Check if nixos-config repo is behind origin
+# Check if nix-config repo is behind origin
 check_nix_config_status() {
-    local nixos_config_path="$HOME/nixos-config"
+    local nix_config_path="$HOME/nix-config"
     
-    # Check if the nixos-config directory exists and is a git repository
-    if [[ -d "$nixos_config_path" ]] && git -C "$nixos_config_path" rev-parse --git-dir > /dev/null 2>&1; then
+    # Debug: Check if directory exists
+    if [[ ! -d "$nix_config_path" ]]; then
+        echo "❌ nix-config directory not found at $nix_config_path"
+        return 1
+    fi
+    
+    # Debug: Check if it's a git repository
+    if ! git -C "$nix_config_path" rev-parse --git-dir > /dev/null 2>&1; then
+        echo "❌ $nix_config_path is not a git repository"
+        return 1
+    fi
+    
+    echo "🔍 Checking nix-config status..."
+    
+    # Check if the nix-config directory exists and is a git repository
+    if [[ -d "$nix_config_path" ]] && git -C "$nix_config_path" rev-parse --git-dir > /dev/null 2>&1; then
         # Fetch from origin quietly
-        git -C "$nixos_config_path" fetch origin > /dev/null 2>&1
+        git -C "$nix_config_path" fetch origin > /dev/null 2>&1
         
         # Get current branch
-        local current_branch=$(git -C "$nixos_config_path" branch --show-current)
+        local current_branch=$(git -C "$nix_config_path" branch --show-current)
         
         # Check if current branch has an upstream
-        local upstream=$(git -C "$nixos_config_path" rev-parse --abbrev-ref "$current_branch@{upstream}" 2>/dev/null)
+        local upstream=$(git -C "$nix_config_path" rev-parse --abbrev-ref "$current_branch@{upstream}" 2>/dev/null)
+        
+        if [[ -z "$upstream" ]]; then
+            echo "❌ No upstream branch configured for '$current_branch'"
+            echo "   Run: git branch --set-upstream-to=origin/$current_branch $current_branch"
+            return 1
+        fi
+        
+        echo "📡 Comparing with upstream: $upstream"
         
         if [[ -n "$upstream" ]]; then
             # Compare local HEAD with upstream
-            local local_commit=$(git -C "$nixos_config_path" rev-parse HEAD)
-            local remote_commit=$(git -C "$nixos_config_path" rev-parse "$upstream")
+            local local_commit=$(git -C "$nix_config_path" rev-parse HEAD)
+            local remote_commit=$(git -C "$nix_config_path" rev-parse "$upstream")
             
             if [[ "$local_commit" != "$remote_commit" ]]; then
                 # Check if local is behind remote
-                local behind_count=$(git -C "$nixos_config_path" rev-list --count HEAD.."$upstream" 2>/dev/null)
-                local ahead_count=$(git -C "$nixos_config_path" rev-list --count "$upstream"..HEAD 2>/dev/null)
+                local behind_count=$(git -C "$nix_config_path" rev-list --count HEAD.."$upstream" 2>/dev/null)
+                local ahead_count=$(git -C "$nix_config_path" rev-list --count "$upstream"..HEAD 2>/dev/null)
                 
                 if [[ "$behind_count" -gt 0 ]]; then
                     echo ""
-                    echo "🔄 Your nixos-config is $behind_count commit(s) behind $upstream"
+                    echo "🔄 Your nix-config is $behind_count commit(s) behind $upstream"
                     if [[ "$ahead_count" -gt 0 ]]; then
                         echo "   (and $ahead_count commit(s) ahead)"
                     fi
@@ -99,25 +121,27 @@ check_nix_config_status() {
                     if [[ "$response" =~ ^[Yy]$ ]]; then
                         if [[ "$ahead_count" -gt 0 ]]; then
                             echo "   Running git pull --rebase..."
-                            git -C "$nixos_config_path" pull --rebase
+                            git -C "$nix_config_path" pull --rebase
                             just switch
                         else
                             echo "   Running git pull..."
-                            git -C "$nixos_config_path" pull
+                            git -C "$nix_config_path" pull
                         fi
                     fi
                     echo ""
                 elif [[ "$ahead_count" -gt 0 ]]; then
                     echo ""
-                    echo "⬆️  Your nixos-config is $ahead_count commit(s) ahead of $upstream"
+                    echo "⬆️  Your nix-config is $ahead_count commit(s) ahead of $upstream"
                     echo ""
                 fi
             else
                 # Local and remote are in sync
                 echo ""
-                echo "✅ Your nixos-config is up to date with $upstream"
+                echo "✅ Your nix-config is up to date with $upstream"
             fi
         fi
+    else
+        echo "❌ Failed to access nix-config repository"
     fi
 }
 

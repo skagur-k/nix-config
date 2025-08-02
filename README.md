@@ -1,6 +1,23 @@
-# NixOS Configuration for macOS and Linux (WSL2)
+# Nix Configuration for macOS and Linux (WSL2)
 
 A comprehensive NixOS configuration for macOS using nix-darwin and Linux using home-manager. This configuration provides a declarative, reproducible setup for both platforms with modern development tools, terminal customization, and system management.
+
+> **Note**: This configuration is personalized for my setup. You'll need to modify user information and preferences before installation.
+
+## 📖 Table of Contents
+
+- [Features](#-features)
+- [Project Structure](#-project-structure) 
+- [Prerequisites](#️-prerequisites)
+- [Installation Instructions](#-installation-instructions)
+- [What to Expect](#️-what-to-expect)
+- [First Time Setup](#-first-time-setup)
+- [Available Commands](#-available-commands)
+- [Configuration Workflow](#-configuration-workflow)
+- [Included Applications](#-included-applications)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ## �� Features
 
@@ -16,7 +33,7 @@ A comprehensive NixOS configuration for macOS using nix-darwin and Linux using h
 ## 📁 Project Structure
 
 ```
-nixos-config/
+nix-config/
 ├── README.md                 # This file
 ├── flake.nix                # Main flake configuration
 ├── flake.lock               # Locked dependencies
@@ -53,80 +70,188 @@ nixos-config/
 
 ## 🛠️ Prerequisites
 
-### macOS
-- **macOS** (Apple Silicon or Intel)
-- **Nix** with flakes enabled
-- **Git**
+### System Requirements
 
-### Linux (WSL2)
-- **Windows 10/11** with WSL2 enabled
-- **Ubuntu** distribution in WSL2
-- **Nix** with flakes enabled
-- **Git**
+**macOS:**
+- macOS 10.15+ (Catalina or later)
+- Apple Silicon (M1/M2/M3) or Intel processor
+- Admin privileges (for system configuration)
 
+**Linux (WSL2):**
+- Windows 10/11 with WSL2 enabled
+- Ubuntu 20.04+ distribution in WSL2
+- At least 4GB available disk space
 
+### Step 1: Install Nix
 
-### Installing Nix
+Choose one of the following methods to install Nix:
 
+#### Option A: Determinate Systems Installer (Recommended)
 ```bash
-# Install Nix with Determinate Systems installer (recommended)
 curl --proto '=https' --tlsv1.2 -sSf https://install.determinate.systems/nix | sh
+```
+*This installer automatically enables flakes and configures Nix optimally.*
 
-# Or install with official installer
+#### Option B: Official Nix Installer
+```bash
 sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
-### Enable Flakes
-
-Add to your shell configuration:
+**Then enable flakes:**
 ```bash
+mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
-## 🚀 Quick Start
-
-### macOS
-1. **Clone the repository**:
-   ```bash
-   git clone <your-repo-url> nixos-config
-   cd nixos-config
-   ```
-
-2. **Apply user information**:
-   ```bash
-   just apply
-   ```
-
-3. **Build and switch to the configuration**:
-   ```bash
-   just switch
-   ```
-
-**Alternative using traditional Nix commands:**
+### Step 2: Restart Your Shell
 ```bash
-nix run .#apply
+# Source the Nix environment
+source ~/.nix-profile/etc/profile.d/nix.sh
+
+# Or open a new terminal session
+```
+
+### Step 3: Verify Installation
+```bash
+# Check Nix version
+nix --version
+
+# Test flakes are enabled
+nix flake --help
+```
+
+## 🚀 Installation Instructions
+
+### Step 1: Clone the Repository
+
+```bash
+# Clone to your home directory
+git clone https://github.com/YOUR_USERNAME/nix-config.git ~/nix-config
+cd ~/nix-config
+```
+
+### Step 2: Customize User Information
+
+**Important**: You must update the user information before installation.
+
+Edit `modules/shared/home-manager.nix`:
+```bash
+# Open the file in your editor
+$EDITOR modules/shared/home-manager.nix
+
+# Update these lines (around line 9-12):
+name = "Your Full Name";
+user = "your-username";  
+email = "your.email@example.com";
+```
+
+### Step 3: Choose Your Installation Method
+
+#### Method A: Using Just (Recommended)
+
+```bash
+# Install just if not available
+nix profile install nixpkgs#just
+
+# See all available commands
+just --list
+
+# Apply configuration (builds and switches)
+just switch
+```
+
+#### Method B: Using Nix Commands Directly
+
+**For macOS:**
+```bash
+# Apple Silicon Macs
+nix run .#build-switch
+
+# Intel Macs  
+nix run .#build-switch --system x86_64-darwin
+```
+
+**For Linux (WSL2):**
+```bash
 nix run .#build-switch
 ```
 
-### Linux (WSL2)
-1. **Clone the repository**:
-   ```bash
-   git clone <your-repo-url> nixos-config
-   cd nixos-config
-   ```
+### Step 4: Verify Installation
 
-2. **Build and switch to the configuration**:
-   ```bash
-   ./apps/x86_64-linux/build-switch
-   ```
-
-**Alternative using traditional Nix commands:**
 ```bash
-nix build .#homeConfigurations.skagur.activationPackage
-./result/activate
+# Check that new packages are available
+which helix zellij starship
+
+# Start a new terminal session to load configurations
+exec $SHELL
 ```
 
+## ⏱️ What to Expect
 
+**First installation typically takes:**
+- macOS: 15-30 minutes (includes Homebrew apps)
+- Linux: 10-20 minutes
+
+**During installation you'll see:**
+1. Package downloads and compilation
+2. Homebrew installation (macOS only)
+3. Configuration file deployment
+4. System activation
+
+**After installation:**
+- New terminal sessions will use the configured shell
+- Applications will be available in your PATH
+- Configuration files will be symlinked to your home directory
+
+## 🎯 First Time Setup
+
+After successful installation, here's what to do next:
+
+### 1. Open a New Terminal
+The configuration only applies to new terminal sessions:
+```bash
+# Start a fresh terminal or reload current session
+exec $SHELL
+```
+
+### 2. Verify Everything Works
+```bash
+# Check shell prompt (should show Starship prompt)
+echo "Shell configured: $SHELL"
+
+# Test key applications
+helix --version
+starship --version
+zellij --version
+
+# Test git configuration
+git config --get user.name
+git config --get user.email
+```
+
+### 3. Explore Key Features
+```bash
+# Smart directory navigation
+z ~/         # Navigate using zoxide
+zi           # Interactive directory picker
+
+# Terminal multiplexer 
+zellij       # Start terminal multiplexer session
+
+# Modern file listing
+ll           # Enhanced ls with eza
+
+# Git status checking (if in a git repo)
+gs           # Git status alias
+```
+
+### 4. Customize Further (Optional)
+- Edit shell aliases in `modules/shared/config/zsh/aliases.zsh`
+- Modify prompt in `modules/shared/config/starship/starship.toml`
+- Add packages in `modules/shared/packages.nix`
+- Add apps (macOS) in `modules/darwin/casks.nix`
+
+After making changes, run `just switch` to apply them.
 
 ## 📋 Available Commands
 
@@ -219,30 +344,123 @@ nix run .#build-switch
 - **Docker**: Container platform
 - **Various fonts**: Programming fonts including JetBrains Mono
 
-## �� Troubleshooting
+## 🔧 Troubleshooting
 
-### Common Issues
+### Installation Issues
 
-#### Build Errors
+#### "Flakes not enabled" Error
 ```bash
-# Check for syntax errors
-nix flake check
+# Enable flakes and nix-command
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
-# Build with verbose output
-nix build .#darwinConfigurations.aarch64-darwin.system --verbose
+# Restart your shell
+exec $SHELL
 ```
 
-#### Rollback
+#### Permission Denied (macOS)
 ```bash
+# Ensure you have admin privileges
+sudo echo "Testing sudo access"
+
+# If using corporate macOS, you may need IT assistance
+```
+
+#### Git Authentication Issues
+```bash
+# Use HTTPS instead of SSH if you don't have keys set up
+git clone https://github.com/YOUR_USERNAME/nix-config.git ~/nix-config
+```
+
+### Build Issues
+
+#### Syntax Errors
+```bash
+# Check for configuration syntax errors
+nix flake check
+
+# Show detailed error output
+nix run .#build-switch --verbose
+```
+
+#### Package Build Failures
+```bash
+# Update flake inputs
+nix flake update
+
+# Try building again
+nix run .#build-switch
+```
+
+#### Disk Space Issues
+```bash
+# Clean up nix store
+nix-collect-garbage -d
+
+# Check available space
+df -h
+```
+
+### Runtime Issues
+
+#### Configuration Not Loading
+```bash
+# Ensure you're using a new terminal session
+exec $SHELL
+
+# Check if home-manager activated
+ls -la ~/.config/
+```
+
+#### Missing Commands
+```bash
+# Check if programs are in PATH
+echo $PATH
+
+# Reload nix environment
+source ~/.nix-profile/etc/profile.d/nix.sh
+```
+
+#### File Conflicts
+If you get file conflict errors during installation:
+- Existing files are automatically backed up with `.backup` extension
+- Check `~/.config/*.backup` for your previous configurations
+- Manually resolve conflicts if needed
+
+### Recovery Options
+
+#### Rollback to Previous Generation
+```bash
+# List available generations
+nix run .#rollback --list
+
 # Rollback to previous working configuration
 nix run .#rollback
 ```
 
-#### File Conflicts
-If you get file conflict errors, existing files are automatically backed up with `.backup` extension.
+#### Reset to Clean State
+```bash
+# Remove all home-manager generations
+home-manager generations | cut -d' ' -f7 | xargs rm -rf
 
-### Homebrew Warnings
-The warning `'install' is a deprecated alias for 'add'` is from Homebrew itself and doesn't affect functionality. It can be suppressed by updating nix-homebrew to the latest version.
+# Remove nix profiles (nuclear option)
+nix profile remove '.*'
+```
+
+### Common Warnings
+
+#### Homebrew Deprecation Warning
+The warning `'install' is a deprecated alias for 'add'` is from Homebrew itself and doesn't affect functionality.
+
+#### Git Tree Uncommitted Changes
+The warning about uncommitted changes is normal and indicates you have local modifications.
+
+### Getting Help
+
+1. Check the [NixOS Discourse](https://discourse.nixos.org/)
+2. Search [GitHub Issues](https://github.com/NixOS/nixpkgs/issues)
+3. Join the [NixOS Discord](https://discord.gg/RbvHtGa)
+4. Check specific tool documentation in this repository
 
 ## 🤝 Contributing
 
