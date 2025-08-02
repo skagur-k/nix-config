@@ -66,6 +66,18 @@ in
         core = {
           editor = "hx";
           autocrlf = "input";
+          pager = "delta";
+        };
+        interactive = {
+          diffFilter = "delta --color-only";
+        };
+        delta = {
+          navigate = true;
+          dark = true;
+          side-by-side = true;
+        };
+        merge = {
+          conflictstyle = "zdiff3";
         };
         pull.rebase = true;
         rebase.autoStash = true;

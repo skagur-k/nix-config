@@ -5,7 +5,7 @@ alias js='just switch'
 alias ncc='check_nix_config_status'
 
 # Use difftastic, syntax-aware diffing
-alias diff=difft
+alias diff=delta
 alias du=dust
 alias zj='zellij'
 

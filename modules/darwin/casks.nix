@@ -5,6 +5,7 @@ _:
   "visual-studio-code"
   "ghostty"
   "cursor"
+  "termius"
 
   # Productivity Tools
   "raycast"
