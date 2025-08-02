@@ -14,6 +14,7 @@ with pkgs;
   just
   du-dust
   dua
+  fastfetch
 
   # Text and terminal utilities
   eza

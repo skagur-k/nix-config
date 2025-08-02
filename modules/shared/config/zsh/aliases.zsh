@@ -7,6 +7,7 @@ alias ncc='check_nix_config_status'
 # Use difftastic, syntax-aware diffing
 alias diff=delta
 alias du=dust
+alias ff=fastfetch
 alias zj='zellij'
 
 # Use bat instead of cat
