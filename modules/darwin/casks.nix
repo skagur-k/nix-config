@@ -13,6 +13,7 @@ _:
   "obsidian"
   "todoist-app"
   "brilliant"
+  "parsec"
 
   # Browsers
   "google-chrome"
@@ -22,6 +23,7 @@ _:
   "leader-key"
   "bettertouchtool"
   "bettermouse"
+  "betterdisplay"
   "karabiner-elements"
   "hiddenbar"
 

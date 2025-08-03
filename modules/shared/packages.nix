@@ -41,6 +41,7 @@ with pkgs;
   terraform
   google-cloud-sdk
   k9s
+  lazygit
 
   # Nix development tools
   nixpkgs-fmt

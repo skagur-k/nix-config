@@ -3,12 +3,13 @@
 
 alias js='just switch'
 alias ncc='check_nix_config_status'
-
-# Use difftastic, syntax-aware diffing
+alias aliases='show_aliases'
+alias sa='show_aliases'
 alias diff=delta
 alias du=dust
 alias ff=fastfetch
 alias zj='zellij'
+alias lg='lazygit'
 
 # Use bat instead of cat
 alias cat='bat'
@@ -90,9 +91,7 @@ alias free='free -h'
 alias top='htop'
 
 # Text processing
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+alias grep='rg --color=auto'
 alias wc='wc -l'
 alias head='head -20'
 alias tail='tail -20'
@@ -104,7 +103,7 @@ alias tarbz2='tar -cjvf'
 
 # Process management
 alias ps='ps auxf'
-alias psgrep='ps aux | grep'
+alias psgrep='ps aux | rg'
 alias meminfo='free -l -h'
 alias cpuinfo='lscpu'
 
@@ -124,6 +123,7 @@ alias kctxs='kubectl config get-contexts'
 alias v='vim'
 alias nv='nvim'
 alias code='code'
+alias cur='cursor'
 
 # Quick file editing
 alias zshrc='hx ~/.zshrc'
@@ -131,18 +131,5 @@ alias vimrc='hx ~/.vimrc'
 alias bashrc='hx ~/.bashrc'
 alias sshconfig='hx ~/.ssh/config'
 
-# Utility aliases
-alias path='echo -e ${PATH//:/\\n}'
-alias now='date +"%T"'
-alias nowtime='now'
-alias nowdate='date +"%d-%m-%Y"'
-alias week='date +%V'
-
-# History aliases
-alias h='history'
-alias h1='history 10'
-alias h2='history 20'
-alias h3='history 30'
-alias hgrep='history | grep'
 
  
