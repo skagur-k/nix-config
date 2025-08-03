@@ -19,7 +19,7 @@ A comprehensive NixOS configuration for macOS using nix-darwin and Linux using h
 - [Contributing](#-contributing)
 - [Resources](#-resources)
 
-## �� Features
+## 📎 Features
 
 - **Declarative Configuration**: All system settings, packages, and configurations are defined in Nix
 - **Cross-Platform**: Shared modules work across macOS and Linux (WSL2)
