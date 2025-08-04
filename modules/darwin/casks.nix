@@ -14,6 +14,7 @@ _:
   "todoist-app"
   "brilliant"
   "parsec"
+  "keka"
 
   # Browsers
   "google-chrome"
