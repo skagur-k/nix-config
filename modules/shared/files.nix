@@ -47,7 +47,7 @@
   };
 
   # k9s (transparent.yaml) configuration
-  ".config/k9s/skins/transparent.toml" = {
+  ".config/k9s/skins/transparent.yaml" = {
     text = builtins.readFile ./config/k9s/skins/transparent.yaml;
   };
 }

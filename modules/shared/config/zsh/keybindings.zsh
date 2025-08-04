@@ -6,7 +6,6 @@ bindkey '\e[6~' history-search-forward   # Page Down
 bindkey '\e[3~' delete-char              # Delete
 
 # Better history searching
-bindkey '^R' history-incremental-search-backward
 bindkey '^ ' autosuggest-accept
 
 # Create widget from function and bind to Ctrl+P
