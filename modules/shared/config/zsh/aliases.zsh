@@ -4,7 +4,6 @@
 alias js='just switch'
 alias ncc='check_nix_config_status'
 alias aliases='show_aliases'
-alias sa='show_aliases'
 alias diff=delta
 alias du=dust
 alias ff=fastfetch

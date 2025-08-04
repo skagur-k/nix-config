@@ -10,5 +10,3 @@ bindkey '^R' history-incremental-search-backward
 bindkey '^ ' autosuggest-accept
 
 # Create widget from function and bind to Ctrl+P
-zle -N check_nix_config_status
-bindkey '^p' check_nix_config_status

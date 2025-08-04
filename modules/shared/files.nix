@@ -35,4 +35,19 @@
   ".config/helix/config.toml" = {
     text = builtins.readFile ./config/helix/config.toml;
   };
+
+  # k9S (config.yaml) configuration
+  ".config/k9s/config.yaml" = {
+    text = builtins.readFile ./config/k9s/config.yaml;
+  };
+
+  # k9s (alias.yaml) configuration
+  ".config/k9s/aliases.yaml" = {
+    text = builtins.readFile ./config/k9s/aliases.yaml;
+  };
+
+  # k9s (transparent.yaml) configuration
+  ".config/k9s/skins/transparent.toml" = {
+    text = builtins.readFile ./config/k9s/skins/transparent.yaml;
+  };
 }
