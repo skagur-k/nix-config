@@ -45,4 +45,8 @@ with pkgs;
 
   # Nix development tools
   nixpkgs-fmt
+
+  # Secret Management tools
+  sops
+  age
 ]

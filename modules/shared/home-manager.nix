@@ -6,7 +6,7 @@
 }:
 
 let
-  name = "Namhyuck (James) Kim";
+  name = "Nam Hyuck (James) Kim";
   user = "skagur";
   email = "namhyuck.james@gmail.com";
 in
