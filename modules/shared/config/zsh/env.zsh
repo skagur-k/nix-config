@@ -17,3 +17,7 @@ export PATH=$HOME/.local/share/bin:$PATH
 export HISTIGNORE="pwd:ls:cd"
 
 export XDG_CONFIG_HOME=$HOME/.config
+
+# Encryption
+export SOPS_AGE_KEY_FILE="$XDG_CONFIG_HOME/sops/age/keys.txt"
+export SOPS_AGE_RECIPIENTS="age1rjwgaj5s78duptsp24y9g80fh0wvqddcjucrhzsrg7eysw0sxeusm29l45"
