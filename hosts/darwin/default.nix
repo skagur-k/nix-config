@@ -22,7 +22,6 @@ in
         owner = user;
       };
       "id_ed25519.pub" = {
-        key = "id_ed25519_pub";
         path = "/Users/${user}/.ssh/id_ed25519.pub";
         mode = "0600";
         owner = user;
