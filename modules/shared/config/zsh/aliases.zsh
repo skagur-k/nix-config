@@ -2,6 +2,7 @@
 # This file is managed by Nix/Home-manager
 
 alias js='just switch'
+alias jso='just switch-otsk'
 alias ncc='check_nix_config_status'
 alias aliases='show_aliases'
 alias diff=delta
