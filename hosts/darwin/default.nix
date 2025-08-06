@@ -12,11 +12,11 @@ in
 
   # SOPS configuration for secrets management
   sops = {
-    defaultSopsFile = ../../secrets/ssh-keys.enc;
+    defaultSopsFile = ../../secrets/secrets.yaml;
     age.keyFile = "/Users/${user}/.config/sops/age/keys.txt";
 
     secrets = {
-      "id_ed25519" = {
+      "private_keys.id_ed25519" = {
         path = "/Users/${user}/.ssh/id_ed25519";
         mode = "0600";
         owner = user;
