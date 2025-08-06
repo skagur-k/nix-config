@@ -10,6 +10,25 @@ in
     ../../modules/shared
   ];
 
+  # SOPS configuration for secrets management
+  sops = {
+    defaultSopsFile = ../../secrets/id_ed25519.enc;
+    age.keyFile = "/Users/${user}/.config/sops/age/keys.txt";
+
+    secrets = {
+      "id_ed25519" = {
+        path = "/Users/${user}/.ssh/id_ed25519_otsk";
+        mode = "0600";
+        owner = user;
+      };
+      "id_ed25519_personal" = {
+        path = "/Users/${user}/.ssh/id_ed25519";
+        mode = "0600";
+        owner = user;
+      };
+    };
+  };
+
   # Set the hostname for work MacBook
   networking.hostName = "skagur-otsk";
 

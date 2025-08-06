@@ -70,4 +70,26 @@ in
       };
   };
 
+  # SSH configuration
+  ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+
+    # SSH host configurations
+    matchBlocks = {
+      "*" = {
+        addKeysToAgent = "yes";
+        useKeychain = true;
+        identitiesOnly = true;
+      };
+
+      # Default key configuration
+      "github.com" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519";
+      };
+    };
+  };
+
 }

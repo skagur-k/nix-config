@@ -26,6 +26,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -38,6 +42,7 @@
       homebrew-cask,
       home-manager,
       nixpkgs,
+      sops-nix,
     }@inputs:
     let
       user = "skagur";
@@ -118,6 +123,7 @@
             modules = [
               home-manager.darwinModules.home-manager
               nix-homebrew.darwinModules.nix-homebrew
+              sops-nix.darwinModules.sops
               {
                 nix-homebrew = {
                   inherit user;
@@ -147,6 +153,7 @@
               specialArgs = inputs;
               modules = [
                 home-manager.darwinModules.home-manager
+                sops-nix.darwinModules.sops
                 # No nix-homebrew since we don't have sudo access
                 ./hosts/darwin-otsk
               ];
@@ -164,6 +171,7 @@
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
             modules = [
+              sops-nix.homeManagerModules.sops
               ./modules/shared/home-manager.nix
               ./modules/linux/home-manager.nix
             ];
@@ -179,6 +187,7 @@
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
             modules = [
+              sops-nix.homeManagerModules.sops
               ./modules/shared/home-manager.nix
               ./modules/darwin-otsk/home-manager.nix
             ];
@@ -193,6 +202,7 @@
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
             modules = [
+              sops-nix.homeManagerModules.sops
               ./modules/shared/home-manager.nix
               ./modules/darwin-otsk/home-manager-only.nix
             ];

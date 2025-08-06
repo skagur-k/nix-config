@@ -7,6 +7,8 @@
 
 let
   user = "skagur";
+  name = "Nam Hyuck (James) Kim";
+  email = "namhyuck.kim@one-line.com";
   sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
@@ -37,26 +39,61 @@ in
     ];
   };
 
-  # Work-specific git configuration (extends shared git config)
-  programs.git = {
-    extraConfig = {
-      # Add any work-specific git settings here
-      # user = {
-      #   name = "Your Work Name";
-      #   email = "your.work@company.com";
-      # };
-    };
-  };
+  programs = {
 
-  # Work-specific shell aliases (extends shared zsh config)
-  programs.zsh = {
-    shellAliases = {
-      # Add work-specific aliases here
-      # work-deploy = "kubectl apply -f .";
-      # work-logs = "kubectl logs -f";
-    };
-  };
+    # Work-specific git configuration (extends shared git config)
+    git = {
+      userName = name;
+      userEmail = email;
+      extraConfig = {};
 
-  # Enable programs that don't require system-level changes
-  programs.home-manager.enable = true;
+        # Add any work-specific git settings here
+        # user = {
+        #   name = "Your Work Name";
+        #   email = "your.work@company.com";
+        # };
+      };
+    };
+
+    # Work-specific shell aliases (extends shared zsh config)
+    zsh = {
+      shellAliases = {
+        # Add work-specific aliases here
+        # work-deploy = "kubectl apply -f .";
+        # work-logs = "kubectl logs -f";
+      };
+    };
+
+    # Enable programs that don't require system-level changes
+    home-manager.enable = true;
+
+    # SSH configuration
+    ssh = {
+      enable = true;
+      addKeysToAgent = "yes";
+
+      # SSH host configurations
+      matchBlocks = {
+        "*" = {
+          addKeysToAgent = "yes";
+          useKeychain = true;
+          identitiesOnly = true;
+        };
+
+        # Default key configuration
+        "github.com" = {
+          hostname = "github.com";
+          user = "git";
+          identityFile = "~/.ssh/id_ed25519_otsk";
+        };
+
+        # Personal GitHub configuration using personal key
+        "github-personal" = {
+          hostname = "github.com";
+          user = "git";
+          identityFile = "~/.ssh/id_ed25519";
+        };
+      };
+    };
+  }
 }
