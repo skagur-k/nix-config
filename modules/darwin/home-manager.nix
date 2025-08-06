@@ -67,7 +67,7 @@ in
           ];
           stateVersion = "25.05";
         };
-        programs = {
+        programs = (import ../shared/home-manager.nix { inherit config pkgs lib; }).programs // {
           # SSH configuration
           ssh = {
             enable = true;
@@ -75,14 +75,6 @@ in
 
             # SSH host configurations
             matchBlocks = {
-              "*" = {
-                extraOptions = {
-                  AddKeysToAgent = "yes";
-                  UseKeychain = "yes";
-                  IdentitiesOnly = "yes";
-                };
-              };
-
               # Default key configuration
               "github.com" = {
                 hostname = "github.com";

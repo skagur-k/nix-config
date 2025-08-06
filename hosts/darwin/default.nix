@@ -17,8 +17,13 @@ in
 
     secrets = {
       "id_ed25519" = {
-        key = "private_keys.id_ed25519";
         path = "/Users/${user}/.ssh/id_ed25519";
+        mode = "0600";
+        owner = user;
+      };
+      "id_ed25519.pub" = {
+        key = "id_ed25519_pub";
+        path = "/Users/${user}/.ssh/id_ed25519.pub";
         mode = "0600";
         owner = user;
       };
