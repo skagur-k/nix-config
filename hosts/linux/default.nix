@@ -6,27 +6,29 @@ in
 {
   imports = [
     ../../modules/linux/home-manager.nix
+    ../../modules/shared
+    inputs.sops-nix.homeManagerModules.sops
   ];
 
   systemd.user.enable = true;
 
   # Home-manager configuration for Linux
-  home-manager = {
-    useGlobalPkgs = true;
-    backupFileExtension = "backup";
-    verbose = false;
-    users.${user} =
-      {
-        pkgs,
-        config,
-        lib,
-        ...
-      }:
-      {
-        imports = [
-          # Add sops-nix home-manager module
-          inputs.sops-nix.homeManagerModules.sops
-        ];
+  # home-manager = {
+  #   useGlobalPkgs = true;
+  #   backupFileExtension = "backup";
+  #   verbose = false;
+  #   users.${user} =
+  #     {
+  #       pkgs,
+  #       config,
+  #       lib,
+  #       ...
+  #     }:
+  #     {
+  #       imports = [
+  #         # Add sops-nix home-manager module
+  #         inputs.sops-nix.homeManagerModules.sops
+  #       ];
 
         # SOPS configuration
         sops = {
@@ -63,6 +65,6 @@ in
           stateVersion = "25.05";
         };
         programs = { } // import ../../modules/shared/home-manager.nix { inherit config pkgs lib; };
-      };
-  };
+      # };
+  # };
 }

@@ -12,8 +12,7 @@ let
 in
 {
   imports = [
-    ../shared/default.nix
-    ../shared/home-manager.nix
+
   ];
 
   home = {

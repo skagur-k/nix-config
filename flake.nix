@@ -172,8 +172,7 @@
             pkgs = nixpkgs.legacyPackages.${system};
             modules = [
               sops-nix.homeManagerModules.sops
-              ./modules/shared/home-manager.nix
-              ./modules/linux/home-manager.nix
+              ./hosts/linux/home-manager.nix
             ];
           }
         );
