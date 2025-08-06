@@ -87,6 +87,11 @@
         "create-keys" = mkApp "create-keys" system;
         "check-keys" = mkApp "check-keys" system;
         "rollback" = mkApp "rollback" system;
+        # Work MacBook apps (no sudo required)
+        "apply-otsk" = mkApp "apply-otsk" system;
+        "build-otsk" = mkApp "build-otsk" system;
+        "build-switch-otsk" = mkApp "build-switch-otsk" system;
+        "rollback-otsk" = mkApp "rollback-otsk" system;
       };
 
       mkLinuxApps = system: {
@@ -101,34 +106,53 @@
       apps =
         nixpkgs.lib.genAttrs darwinSystems mkDarwinApps // nixpkgs.lib.genAttrs linuxSystems mkLinuxApps;
 
-      darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (
-        system:
-        let
-          user = "skagur";
-        in
-        darwin.lib.darwinSystem {
-          inherit system;
-          specialArgs = inputs;
-          modules = [
-            home-manager.darwinModules.home-manager
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                inherit user;
-                enable = true;
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
+      darwinConfigurations =
+        nixpkgs.lib.genAttrs darwinSystems (
+          system:
+          let
+            user = "skagur";
+          in
+          darwin.lib.darwinSystem {
+            inherit system;
+            specialArgs = inputs;
+            modules = [
+              home-manager.darwinModules.home-manager
+              nix-homebrew.darwinModules.nix-homebrew
+              {
+                nix-homebrew = {
+                  inherit user;
+                  enable = true;
+                  taps = {
+                    "homebrew/homebrew-core" = homebrew-core;
+                    "homebrew/homebrew-cask" = homebrew-cask;
+                    "homebrew/homebrew-bundle" = homebrew-bundle;
+                  };
+                  mutableTaps = false;
+                  autoMigrate = true;
                 };
-                mutableTaps = false;
-                autoMigrate = true;
-              };
+              }
+              ./hosts/darwin
+            ];
+          }
+        )
+        // {
+          # Work MacBook configuration without sudo requirements
+          darwin-otsk = nixpkgs.lib.genAttrs darwinSystems (
+            system:
+            let
+              user = "skagur";
+            in
+            darwin.lib.darwinSystem {
+              inherit system;
+              specialArgs = inputs;
+              modules = [
+                home-manager.darwinModules.home-manager
+                # No nix-homebrew since we don't have sudo access
+                ./hosts/darwin-otsk
+              ];
             }
-            ./hosts/darwin
-          ];
-        }
-      );
+          );
+        };
 
       # Configuration for Linux
       homeConfigurations = {
@@ -142,6 +166,21 @@
             modules = [
               ./modules/shared/home-manager.nix
               ./modules/linux/home-manager.nix
+            ];
+          }
+        );
+        
+        # Work MacBook Home Manager configuration (no sudo required)
+        skagur-work = nixpkgs.lib.genAttrs darwinSystems (
+          system:
+          let
+            user = "skagur";
+          in
+          home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            modules = [
+              ./modules/shared/home-manager.nix
+              ./modules/darwin-otsk/home-manager-only.nix
             ];
           }
         );
