@@ -169,7 +169,7 @@ brew-install:
     @if [ -f ~/.config/Brewfile ]; then \
         cd ~/.config && brew bundle install; \
     else \
-        echo "❌ No Brewfile found at ~/.config/Brewfile"; \
-        echo "💡 Copy your Brewfile there first: cp modules/shared/config/Brewfile ~/.config/"; \
+        @echo "❌ No Brewfile found at ~/.config/Brewfile"; \
+        @echo "💡 Copy your Brewfile there first: cp modules/shared/config/Brewfile ~/.config/"; \
         exit 1; \
     fi 
