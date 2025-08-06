@@ -9,7 +9,6 @@ let
   user = "skagur";
   name = "Nam Hyuck (James) Kim";
   email = "namhyuck.kim@one-line.com";
-  sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
@@ -34,7 +33,6 @@ in
 
     # Merge shared files with work-specific files
     file = lib.mkMerge [
-      sharedFiles
       additionalFiles
     ];
   };

@@ -8,14 +8,15 @@
 
 let
   user = "skagur";
-
-  sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
   imports = [
-
+    ../shared/home-manager.nix
   ];
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # It me
   users.users.${user} = {
@@ -59,15 +60,17 @@ in
       }:
       {
         home = {
+          username = user;
+          homeDirectory = "/Users/${user}";
           enableNixpkgsReleaseCheck = false;
           packages = pkgs.callPackage ./packages.nix { };
           file = lib.mkMerge [
-            sharedFiles
             additionalFiles
           ];
           stateVersion = "25.05";
         };
-        programs = (import ../shared/home-manager.nix { inherit config pkgs lib; }).programs // {
+        
+        programs = {
           # SSH configuration
           ssh = {
             enable = true;

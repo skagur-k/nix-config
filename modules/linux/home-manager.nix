@@ -7,13 +7,16 @@
 
 let
   user = "skagur";
-  sharedFiles = import ../shared/files.nix { inherit config pkgs; };
+  # sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
   imports = [
-
+    ../shared/home-manager.nix
   ];
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   home = {
     username = user;
@@ -22,7 +25,7 @@ in
     enableNixpkgsReleaseCheck = false;
     packages = pkgs.callPackage ./packages.nix { };
     file = lib.mkMerge [
-      sharedFiles
+      # sharedFiles
       additionalFiles
     ];
 

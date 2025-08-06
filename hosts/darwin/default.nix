@@ -6,8 +6,7 @@ in
 
 {
   imports = [
-    ../../modules/darwin/home-manager.nix
-    ../../modules/shared
+    ./home-manager.nix
   ];
 
   # SOPS configuration for secrets management

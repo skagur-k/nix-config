@@ -11,6 +11,11 @@ let
   email = "namhyuck.james@gmail.com";
 in
 {
+  home = {
+    packages = pkgs.callPackage ./packages.nix { };
+    file = import ./files.nix { inherit config pkgs; };
+  };
+
   programs = {
     # Shared shell configuration
     zsh = {
