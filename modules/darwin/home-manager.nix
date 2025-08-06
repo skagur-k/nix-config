@@ -14,6 +14,7 @@ let
 in
 {
   imports = [
+
   ];
 
   # It me
@@ -66,30 +67,32 @@ in
           ];
           stateVersion = "25.05";
         };
-        programs = (import ../shared/home-manager.nix { inherit config pkgs lib; }).programs;
-      };
-  };
+        programs = {
+          # SSH configuration
+          ssh = {
+            enable = true;
+            addKeysToAgent = "yes";
 
-  # SSH configuration
-  ssh = {
-    enable = true;
-    addKeysToAgent = "yes";
+            # SSH host configurations
+            matchBlocks = {
+              "*" = {
+                extraOptions = {
+                  AddKeysToAgent = "yes";
+                  UseKeychain = "yes";
+                  IdentitiesOnly = "yes";
+                };
+              };
 
-    # SSH host configurations
-    matchBlocks = {
-      "*" = {
-        addKeysToAgent = "yes";
-        useKeychain = true;
-        identitiesOnly = true;
+              # Default key configuration
+              "github.com" = {
+                hostname = "github.com";
+                user = "git";
+                identityFile = "~/.ssh/id_ed25519";
+              };
+            };
+          };
+        };
       };
-
-      # Default key configuration
-      "github.com" = {
-        hostname = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/id_ed25519";
-      };
-    };
   };
 
 }

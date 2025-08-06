@@ -40,34 +40,7 @@ in
   };
 
   programs = {
-
-    # Work-specific git configuration (extends shared git config)
-    git = {
-      userName = name;
-      userEmail = email;
-      extraConfig = {};
-
-        # Add any work-specific git settings here
-        # user = {
-        #   name = "Your Work Name";
-        #   email = "your.work@company.com";
-        # };
-      };
-    };
-
-    # Work-specific shell aliases (extends shared zsh config)
-    zsh = {
-      shellAliases = {
-        # Add work-specific aliases here
-        # work-deploy = "kubectl apply -f .";
-        # work-logs = "kubectl logs -f";
-      };
-    };
-
-    # Enable programs that don't require system-level changes
-    home-manager.enable = true;
-
-    # SSH configuration
+# SSH configuration
     ssh = {
       enable = true;
       addKeysToAgent = "yes";
@@ -95,5 +68,34 @@ in
         };
       };
     };
+    # Work-specific git configuration (extends shared git config)
+    git = {
+      userName = name;
+      userEmail = email;
+      extraConfig = {};
+
+        # Add any work-specific git settings here
+        # user = {
+        #   name = "Your Work Name";
+        #   email = "your.work@company.com";
+        # };
+      };
+    };
+
+    # Work-specific shell aliases (extends shared zsh config)
+    zsh = {
+      shellAliases = {
+        # Add work-specific aliases here
+        # work-deploy = "kubectl apply -f .";
+        # work-logs = "kubectl logs -f";
+      };
+
+      
+    };
+
+    # Enable programs that don't require system-level changes
+    home-manager.enable = true;
+
+    
   }
 }

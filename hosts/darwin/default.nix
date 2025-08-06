@@ -12,7 +12,7 @@ in
 
   # SOPS configuration for secrets management
   sops = {
-    defaultSopsFile = ../../secrets/id_ed25519.enc;
+    defaultSopsFile = ../../secrets/ssh-keys.enc;
     age.keyFile = "/Users/${user}/.config/sops/age/keys.txt";
 
     secrets = {
