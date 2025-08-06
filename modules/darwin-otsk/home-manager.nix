@@ -28,8 +28,8 @@ in
     homeDirectory = "/Users/${user}";
     stateVersion = "25.05";
 
-    # Work-specific packages (will be added to shared packages)
-    packages = pkgs.callPackage ./packages.nix { };
+    # Include both work-specific and shared packages through home-manager
+    packages = (pkgs.callPackage ./packages.nix { }) ++ (import ../shared/packages.nix { inherit pkgs; });
 
     # Merge shared files with work-specific files
     file = lib.mkMerge [

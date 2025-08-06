@@ -7,7 +7,6 @@ in
 {
   imports = [
     ../../modules/darwin-otsk/home-manager.nix
-    ../../modules/shared
   ];
 
   # SOPS configuration for secrets management
@@ -51,12 +50,6 @@ in
       experimental-features = nix-command flakes
     '';
   };
-
-  # Only include packages, no system packages since we don't have sudo
-  environment.systemPackages = [
-    # Minimal system packages that don't require special permissions
-  ]
-  ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   system = {
     checks.verifyNixPath = false;
