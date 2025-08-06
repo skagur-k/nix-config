@@ -23,7 +23,6 @@ with pkgs;
   jq
   ripgrep
   tree
-  unrar
   unzip
   zellij
   fd

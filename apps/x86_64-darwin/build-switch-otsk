@@ -10,14 +10,12 @@ FLAKE_SYSTEM="darwinConfigurations.darwin-otsk.${SYSTEM_TYPE}.system"
 
 export NIXPKGS_ALLOW_UNFREE=1
 
-echo "${YELLOW}Starting build for work MacBook (no sudo required)...${NC}"
-nix --extra-experimental-features 'nix-command flakes' build .#$FLAKE_SYSTEM $@
+echo "${YELLOW}Applying work MacBook configuration (Home Manager only, no sudo required)...${NC}"
 
-echo "${YELLOW}Switching to new generation (no sudo required)...${NC}"
-# Use the result/sw/bin/darwin-rebuild without sudo for user-space only changes
-./result/sw/bin/darwin-rebuild switch --flake .#darwin-otsk.${SYSTEM_TYPE} $@
+# Use Home Manager directly instead of nix-darwin to avoid sudo requirements
+nix run home-manager/master -- switch --flake .#skagur-work-intel $@
 
-echo "${YELLOW}Cleaning up...${NC}"
-unlink ./result
-
-echo "${GREEN}Switch to new generation complete! (No system-level changes applied)${NC}"
+echo "${GREEN}Work MacBook configuration applied successfully!${NC}"
+echo ""
+echo "${YELLOW}Note: This configuration only manages user-space settings.${NC}"
+echo "${YELLOW}System-level preferences need to be configured manually.${NC}"

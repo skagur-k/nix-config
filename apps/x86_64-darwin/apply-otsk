@@ -9,10 +9,10 @@ SYSTEM_TYPE="x86_64-darwin"
 
 export NIXPKGS_ALLOW_UNFREE=1
 
-echo "${YELLOW}Applying work MacBook configuration (no sudo required)...${NC}"
+echo "${YELLOW}Applying work MacBook configuration (Home Manager only, no sudo required)...${NC}"
 
-# Build and switch in one command for convenience
-nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake .#darwin-otsk.${SYSTEM_TYPE} $@
+# Use Home Manager directly instead of nix-darwin to avoid sudo requirements
+nix run home-manager/master -- switch --flake .#skagur-work-intel $@
 
 echo "${GREEN}Work MacBook configuration applied successfully!${NC}"
 echo ""

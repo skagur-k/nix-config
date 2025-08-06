@@ -53,8 +53,10 @@ This configuration is specifically designed for work MacBooks where you don't ha
 |---------|-------------|
 | `nix run .#build-otsk` | Build the work MacBook configuration |
 | `nix run .#build-switch-otsk` | Build and switch to the new configuration |
-| `nix run .#apply-otsk` | Quick apply (build + switch) |
+| `nix run .#apply-otsk` | Quick apply (build + switch) - **RECOMMENDED** |
 | `nix run .#rollback-otsk` | Rollback to previous generation |
+
+**Note**: Use `apply-otsk` for both Intel and Apple Silicon Macs - it will automatically detect your architecture.
 
 ## What's Included
 
@@ -141,16 +143,16 @@ If changes don't take effect:
 2. Ensure you ran the switch command: `nix run .#build-switch-otsk`
 3. Restart your shell to reload environment
 
-## Alternative: Home Manager Only
+## How It Works
 
-If nix-darwin gives you trouble, you can use Home Manager directly:
+This configuration uses **Home Manager only** (no nix-darwin) to avoid any sudo requirements:
 
-```bash
-# Install Home Manager
-nix run home-manager/master -- switch --flake .#skagur-work
-```
+- **Apple Silicon Macs**: Uses `skagur-work` configuration
+- **Intel Macs**: Uses `skagur-work-intel` configuration  
+- **Everything runs in user space** - no system-level changes
+- **Packages are installed to your user profile** - accessible in your shell
 
-Create a Home Manager-only configuration in your flake.nix if needed.
+The `apply-otsk` script automatically detects your Mac architecture and applies the correct configuration.
 
 ## Support
 

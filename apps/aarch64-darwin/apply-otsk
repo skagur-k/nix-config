@@ -12,7 +12,7 @@ export NIXPKGS_ALLOW_UNFREE=1
 echo "${YELLOW}Applying work MacBook configuration (Home Manager only, no sudo required)...${NC}"
 
 # Use Home Manager directly instead of nix-darwin to avoid sudo requirements
-nix run home-manager/master -- switch --flake .#skagur-work.${SYSTEM_TYPE} $@
+nix run home-manager/master -- switch --flake .#skagur-work $@
 
 echo "${GREEN}Work MacBook configuration applied successfully!${NC}"
 echo ""

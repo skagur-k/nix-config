@@ -38,6 +38,10 @@ switch:
     @echo "Building and switching to new configuration..."
     nix run .#build-switch
 
+switch-otsk:
+    @echo "Building and switching to new configuration... (OTSK)"
+    nix run .#build-switch-otsk
+
 # Apply configuration (runs the apply script)
 apply:
     echo "Applying configuration..."

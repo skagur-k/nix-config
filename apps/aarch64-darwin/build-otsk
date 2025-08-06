@@ -6,7 +6,7 @@ RED='\033[1;31m'
 NC='\033[0m'
 
 SYSTEM_TYPE="aarch64-darwin"
-FLAKE_SYSTEM="homeConfigurations.skagur-work.${SYSTEM_TYPE}.activationPackage"
+FLAKE_SYSTEM="homeConfigurations.skagur-work.activationPackage"
 
 export NIXPKGS_ALLOW_UNFREE=1
 

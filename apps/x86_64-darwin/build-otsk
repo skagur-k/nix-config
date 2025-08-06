@@ -6,11 +6,11 @@ RED='\033[1;31m'
 NC='\033[0m'
 
 SYSTEM_TYPE="x86_64-darwin"
-FLAKE_SYSTEM="darwinConfigurations.darwin-otsk.${SYSTEM_TYPE}.system"
+FLAKE_SYSTEM="homeConfigurations.skagur-work-intel.activationPackage"
 
 export NIXPKGS_ALLOW_UNFREE=1
 
-echo "${YELLOW}Building work MacBook configuration (no sudo required)...${NC}"
+echo "${YELLOW}Building work MacBook configuration (Home Manager only, no sudo required)...${NC}"
 nix --extra-experimental-features 'nix-command flakes' build .#$FLAKE_SYSTEM $@
 
 echo "${YELLOW}Cleaning up...${NC}"

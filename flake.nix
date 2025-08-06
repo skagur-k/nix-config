@@ -169,11 +169,25 @@
             ];
           }
         );
-        
+
         # Work MacBook Home Manager configuration (no sudo required)
-        skagur-work = nixpkgs.lib.genAttrs darwinSystems (
-          system:
+        skagur-work =
           let
+            system = "aarch64-darwin";
+            user = "skagur";
+          in
+          home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            modules = [
+              ./modules/shared/home-manager.nix
+              ./modules/darwin-otsk/home-manager.nix
+            ];
+          };
+
+        # Work MacBook for Intel Macs
+        skagur-work-intel =
+          let
+            system = "x86_64-darwin";
             user = "skagur";
           in
           home-manager.lib.homeManagerConfiguration {
@@ -182,8 +196,7 @@
               ./modules/shared/home-manager.nix
               ./modules/darwin-otsk/home-manager-only.nix
             ];
-          }
-        );
+          };
       };
     };
 }

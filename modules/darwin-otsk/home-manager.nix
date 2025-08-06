@@ -2,54 +2,55 @@
   config,
   pkgs,
   lib,
-  home-manager,
   ...
 }:
 
 let
   user = "skagur";
-
-  sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
-  imports = [
-  ];
+  # This is a pure Home Manager configuration for work MacBooks
+  # No system-level configuration - everything runs in user space
 
-  # User configuration without sudo requirements
-  users.users.${user} = {
-    name = "${user}";
-    home = "/Users/${user}";
-    isHidden = false;
-    shell = pkgs.zsh;
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  home = {
+    username = user;
+    homeDirectory = "/Users/${user}";
+    stateVersion = "25.05";
+
+    # Work-specific packages
+    packages = pkgs.callPackage ./packages.nix { };
+
+    # Work-specific configuration files
+    file = additionalFiles;
   };
 
-  # No homebrew configuration since we don't have sudo access
-  # All applications will need to be installed manually or via alternative methods
+  # Programs configuration is inherited from shared/home-manager.nix
+  # You can override or extend any program configurations here if needed
 
-  # Enable home-manager for user-space configuration only
-  home-manager = {
-    useGlobalPkgs = true;
-    backupFileExtension = "backup";
-    verbose = false;
-    users.${user} =
-      {
-        pkgs,
-        config,
-        lib,
-        ...
-      }:
-      {
-        home = {
-          enableNixpkgsReleaseCheck = false;
-          packages = pkgs.callPackage ./packages.nix { };
-          file = lib.mkMerge [
-            sharedFiles
-            additionalFiles
-          ];
-          stateVersion = "25.05";
-        };
-        programs = (import ../shared/home-manager.nix { inherit config pkgs lib; }).programs;
-      };
+  # Example of work-specific git configuration
+  programs.git = {
+    extraConfig = {
+      # Add any work-specific git settings here
+      # user = {
+      #   name = "Your Work Name";
+      #   email = "your.work@company.com";
+      # };
+    };
   };
+
+  # Work-specific shell aliases
+  programs.zsh = {
+    shellAliases = {
+      # Add work-specific aliases here
+      # work-deploy = "kubectl apply -f .";
+      # work-logs = "kubectl logs -f";
+    };
+  };
+
+  # Enable programs that don't require system-level changes
+  programs.home-manager.enable = true;
 }
