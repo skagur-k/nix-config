@@ -16,7 +16,8 @@ in
     age.keyFile = "/Users/${user}/.config/sops/age/keys.txt";
 
     secrets = {
-      "private_keys.id_ed25519" = {
+      "id_ed25519" = {
+        key = "private_keys.id_ed25519";
         path = "/Users/${user}/.ssh/id_ed25519";
         mode = "0600";
         owner = user;
