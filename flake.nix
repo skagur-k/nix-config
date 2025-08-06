@@ -137,30 +137,11 @@
                   autoMigrate = true;
                 };
               }
-              ./hosts/darwin
+              ./hosts/skagur-mba
             ];
           }
         )
-        // {
-          # Work MacBook configuration without sudo requirements
-          darwin-otsk = nixpkgs.lib.genAttrs darwinSystems (
-            system:
-            let
-              user = "skagur";
-            in
-            darwin.lib.darwinSystem {
-              inherit system;
-              specialArgs = inputs;
-              modules = [
-                home-manager.darwinModules.home-manager
-                sops-nix.darwinModules.sops
-                # No nix-homebrew since we don't have sudo access
-                ./hosts/darwin-otsk
-              ];
-            }
-          );
-        };
-
+        
       # Configuration for Linux
       homeConfigurations = {
         skagur = nixpkgs.lib.genAttrs linuxSystems (
@@ -172,40 +153,24 @@
             pkgs = nixpkgs.legacyPackages.${system};
             modules = [
               sops-nix.homeManagerModules.sops
-              ./hosts/linux/home-manager.nix
+              ./hosts/wsl2
             ];
           }
         );
 
         # Work MacBook Home Manager configuration (no sudo required)
-        skagur-work =
-          let
-            system = "aarch64-darwin";
-            user = "skagur";
-          in
-          home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.${system};
-            modules = [
-              sops-nix.homeManagerModules.sops
-              ./modules/shared/home-manager.nix
-              ./modules/darwin-otsk/home-manager.nix
-            ];
-          };
-
-        # Work MacBook for Intel Macs
-        skagur-work-intel =
-          let
-            system = "x86_64-darwin";
-            user = "skagur";
-          in
-          home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.${system};
-            modules = [
-              sops-nix.homeManagerModules.sops
-              ./modules/shared/home-manager.nix
-              ./modules/darwin-otsk/home-manager-only.nix
-            ];
-          };
+        # skagur-work =
+        #   let
+        #     system = "aarch64-darwin";
+        #     user = "skagur";
+        #   in
+        #   home-manager.lib.homeManagerConfiguration {
+        #     pkgs = nixpkgs.legacyPackages.${system};
+        #     modules = [
+        #       sops-nix.homeManagerModules.sops
+        #       ./hosts/linux
+        #     ];
+        #   };
       };
     };
 }

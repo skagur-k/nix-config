@@ -9,10 +9,11 @@
 let
   user = "skagur";
   additionalFiles = import ./files.nix { inherit user config pkgs; };
+  sharedFiles = import ../shared/files.nix { inherit config pkgs; };
 in
 {
   imports = [
-    ../shared/home-manager.nix
+
   ];
 
   # Allow unfree packages
@@ -66,11 +67,12 @@ in
           packages = pkgs.callPackage ./packages.nix { };
           file = lib.mkMerge [
             additionalFiles
+            sharedFiles
           ];
           stateVersion = "25.05";
         };
-        
-        programs = {
+
+        programs = (import ../shared/home-manager.nix { inherit config pkgs lib; }).programs // {
           # SSH configuration
           ssh = {
             enable = true;

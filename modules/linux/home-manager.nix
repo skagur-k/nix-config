@@ -7,12 +7,12 @@
 
 let
   user = "skagur";
-  # sharedFiles = import ../shared/files.nix { inherit config pkgs; };
+  sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
   imports = [
-    ../shared/home-manager.nix
+
   ];
 
   # Allow unfree packages
@@ -25,7 +25,7 @@ in
     enableNixpkgsReleaseCheck = false;
     packages = pkgs.callPackage ./packages.nix { };
     file = lib.mkMerge [
-      # sharedFiles
+      sharedFiles
       additionalFiles
     ];
 
@@ -35,7 +35,7 @@ in
     };
   };
 
-  programs = {
+  programs = (import ../shared/home-manager.nix { inherit config pkgs lib; }).programs // {
     # SSH configuration
     ssh = {
       enable = true;

@@ -9,12 +9,13 @@ let
   user = "skagur";
   name = "Nam Hyuck (James) Kim";
   email = "namhyuck.kim@one-line.com";
+  sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
   # Import the shared module
   imports = [
-    ../shared/home-manager.nix
+    
   ];
 
   # This is a pure Home Manager configuration for work MacBooks
@@ -28,11 +29,12 @@ in
     homeDirectory = "/Users/${user}";
     stateVersion = "25.05";
 
-    # Include both work-specific and shared packages through home-manager
-    packages = (pkgs.callPackage ./packages.nix { }) ++ (import ../shared/packages.nix { inherit pkgs; });
+    # Work-specific packages (will be added to shared packages)
+    packages = pkgs.callPackage ./packages.nix { };
 
     # Merge shared files with work-specific files
     file = lib.mkMerge [
+      sharedFiles
       additionalFiles
     ];
   };
