@@ -52,7 +52,7 @@
   };
 
   # Brewfile
-  "Brewfile" = {
+  ".config/Brewfile" = {
     text = builtins.readFile ./config/Brewfile;
   };
 }
