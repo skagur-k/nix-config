@@ -14,6 +14,12 @@ echo "${YELLOW}Applying work MacBook configuration (Home Manager only, no sudo r
 # Use Home Manager directly instead of nix-darwin to avoid sudo requirements
 nix run home-manager/master -- switch --flake .#skagur-work $@
 
+echo "${YELLOW}Cleaning up...${NC}"
+# Clean up any result symlinks that might have been created
+if [ -L ./result ]; then
+  unlink ./result
+fi
+
 echo "${GREEN}Work MacBook configuration applied successfully!${NC}"
 echo ""
 echo "${YELLOW}Note: This configuration only manages user-space settings.${NC}"
