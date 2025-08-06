@@ -111,40 +111,39 @@
       apps =
         nixpkgs.lib.genAttrs darwinSystems mkDarwinApps // nixpkgs.lib.genAttrs linuxSystems mkLinuxApps;
 
-      darwinConfigurations =
-        nixpkgs.lib.genAttrs darwinSystems (
-          system:
-          let
-            user = "skagur";
-          in
-          darwin.lib.darwinSystem {
-            inherit system;
-            specialArgs = inputs;
-            modules = [
-              home-manager.darwinModules.home-manager
-              nix-homebrew.darwinModules.nix-homebrew
-              sops-nix.darwinModules.sops
-              {
-                nix-homebrew = {
-                  inherit user;
-                  enable = true;
-                  taps = {
-                    "homebrew/homebrew-core" = homebrew-core;
-                    "homebrew/homebrew-cask" = homebrew-cask;
-                    "homebrew/homebrew-bundle" = homebrew-bundle;
-                  };
-                  mutableTaps = false;
-                  autoMigrate = true;
+      darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (
+        system:
+        let
+          user = "skagur";
+        in
+        darwin.lib.darwinSystem {
+          inherit system;
+          specialArgs = inputs;
+          modules = [
+            home-manager.darwinModules.home-manager
+            nix-homebrew.darwinModules.nix-homebrew
+            sops-nix.darwinModules.sops
+            {
+              nix-homebrew = {
+                inherit user;
+                enable = true;
+                taps = {
+                  "homebrew/homebrew-core" = homebrew-core;
+                  "homebrew/homebrew-cask" = homebrew-cask;
+                  "homebrew/homebrew-bundle" = homebrew-bundle;
                 };
-              }
-              ./hosts/skagur-mba
-            ];
-          }
-        )
-        
+                mutableTaps = false;
+                autoMigrate = true;
+              };
+            }
+            ./hosts/skagur-mba
+          ];
+        }
+      );
+
       # Configuration for Linux
       homeConfigurations = {
-        skagur = nixpkgs.lib.genAttrs linuxSystems (
+        wsl2 = nixpkgs.lib.genAttrs linuxSystems (
           system:
           let
             user = "skagur";

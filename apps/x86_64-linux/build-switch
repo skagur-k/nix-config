@@ -7,7 +7,7 @@ RED=$'\e[1;31m'
 NC=$'\e[0m'
 
 SYSTEM_TYPE="x86_64-linux"
-FLAKE_SYSTEM="homeConfigurations.skagur.${SYSTEM_TYPE}.activationPackage"
+FLAKE_SYSTEM="homeConfigurations.wsl2.${SYSTEM_TYPE}.activationPackage"
 
 export NIXPKGS_ALLOW_UNFREE=1
 

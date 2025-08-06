@@ -13,7 +13,7 @@ echo "This will install packages and configure your environment."
 read -p "Continue? (y/N): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    nix build .#homeConfigurations.skagur.${SYSTEM_TYPE}.activationPackage
+    nix build .#homeConfigurations.wsl2.${SYSTEM_TYPE}.activationPackage
     ./result/activate
     echo "${GREEN}Configuration applied successfully!${NC}"
 else
