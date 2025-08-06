@@ -139,6 +139,11 @@ help:
     @echo "  just backup    - Backup current configuration"
     @echo "  just restore <path> - Restore from backup"
     @echo ""
+    @echo "Brewfile Management:"
+    @echo "  just brewfile        - Generate Brewfile from casks.nix"
+    @echo "  just setup-hooks     - Setup git hooks (auto-generate Brewfile)"
+    @echo "  just brew-install    - Install apps from ~/.config/Brewfile"
+    @echo ""
     @echo "Supported Systems:"
     @echo "  macOS (Apple Silicon) - aarch64-darwin"
     @echo "  macOS (Intel)        - x86_64-darwin"
@@ -146,4 +151,25 @@ help:
     @echo ""
     @echo "Examples:"
     @echo "  just switch    # Build and switch"
-    @echo "  just restore ../nixos-config-backup-20231201-143022" 
+    @echo "  just restore ../nixos-config-backup-20231201-143022"
+
+# Generate Brewfile from casks.nix
+brewfile:
+    @echo "🍺 Generating Brewfile from casks.nix..."
+    ./scripts/generate-brewfile.sh
+
+# Setup git hooks for automatic Brewfile generation
+setup-hooks:
+    @echo "🔧 Setting up git hooks..."
+    ./scripts/setup-git-hooks.sh 
+
+# Install apps from Brewfile in ~/.config/Brewfile
+brew-install:
+    @echo "🍻 Installing apps from ~/.config/Brewfile..."
+    @if [ -f ~/.config/Brewfile ]; then \
+        cd ~/.config && brew bundle install; \
+    else \
+        echo "❌ No Brewfile found at ~/.config/Brewfile"; \
+        echo "💡 Copy your Brewfile there first: cp modules/shared/config/Brewfile ~/.config/"; \
+        exit 1; \
+    fi 

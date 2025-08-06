@@ -50,4 +50,9 @@
   ".config/k9s/skins/transparent.yaml" = {
     text = builtins.readFile ./config/k9s/skins/transparent.yaml;
   };
+
+  # Brewfile
+  "Brewfile" = {
+    text = builtins.readFile ./config/Brewfile;
+  };
 }
