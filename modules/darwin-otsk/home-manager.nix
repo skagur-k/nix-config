@@ -11,10 +11,15 @@ let
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
+  # Import the shared module
+  imports = [
+    ../shared/home-manager.nix
+  ];
+
   # This is a pure Home Manager configuration for work MacBooks
   # No system-level configuration - everything runs in user space
 
-  # Allow unfree packages
+  # Allow unfree packages (this will merge with shared settings)
   nixpkgs.config.allowUnfree = true;
 
   home = {
@@ -22,17 +27,17 @@ in
     homeDirectory = "/Users/${user}";
     stateVersion = "25.05";
 
-    # Work-specific packages
+    # Work-specific packages (will be added to shared packages)
     packages = pkgs.callPackage ./packages.nix { };
 
-    # Work-specific configuration files
-    file = additionalFiles;
+    # Merge shared files with work-specific files
+    file = lib.mkMerge [
+      sharedFiles
+      additionalFiles
+    ];
   };
 
-  # Programs configuration is inherited from shared/home-manager.nix
-  # You can override or extend any program configurations here if needed
-
-  # Example of work-specific git configuration
+  # Work-specific git configuration (extends shared git config)
   programs.git = {
     extraConfig = {
       # Add any work-specific git settings here
@@ -43,7 +48,7 @@ in
     };
   };
 
-  # Work-specific shell aliases
+  # Work-specific shell aliases (extends shared zsh config)
   programs.zsh = {
     shellAliases = {
       # Add work-specific aliases here
