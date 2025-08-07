@@ -1,8 +1,8 @@
 # Nix Configuration for macOS and Linux (WSL2)
 
-A comprehensive NixOS configuration for macOS using nix-darwin and Linux using home-manager. This configuration provides a declarative, reproducible setup for both platforms with modern development tools, terminal customization, and system management.
+A comprehensive NixOS configuration for macOS using nix-darwin and Linux using home-manager. This configuration provides a declarative, reproducible setup for both platforms with modern development tools, terminal customization, secrets management, and system automation.
 
-> **Note**: This configuration is personalized for my setup. You'll need to modify user information and preferences before installation.
+> **Note**: This configuration is personalized for my setup (user: skagur). You'll need to modify user information, host configurations, and preferences before installation.
 
 ## 📖 Table of Contents
 
@@ -23,49 +23,73 @@ A comprehensive NixOS configuration for macOS using nix-darwin and Linux using h
 
 - **Declarative Configuration**: All system settings, packages, and configurations are defined in Nix
 - **Cross-Platform**: Shared modules work across macOS and Linux (WSL2)
+- **Multiple Host Support**: Configurations for personal MacBook (skagur-mba), work MacBook (darwin-otsk), and WSL2
+- **Secrets Management**: SOPS-nix integration for secure handling of SSH keys and sensitive data
 - **Modern Development Stack**: Includes tools like Helix, Zellij, Starship, and more
 - **Smart Directory Navigation**: Zoxide integration for intelligent directory jumping
-- **Terminal Customization**: Ghostty terminal with modern theming
-- **Application Launcher**: LeaderKey for quick app launching
+- **Terminal Customization**: Ghostty terminal with modern theming (macOS)
+- **Application Launcher**: LeaderKey for quick app launching (macOS)
 - **Package Management**: Homebrew integration for macOS-specific packages
 - **Version Control**: Git configuration with sensible defaults
+- **Automated Scripts**: Kubernetes config encryption/decryption and setup automation
 
 ## 📁 Project Structure
 
 ```
 nix-config/
 ├── README.md                 # This file
-├── flake.nix                # Main flake configuration
+├── flake.nix                # Main flake configuration with inputs and outputs
 ├── flake.lock               # Locked dependencies
-├── apps/                    # Build and deployment scripts
-│   ├── aarch64-darwin/     # Apple Silicon scripts
-│   ├── x86_64-darwin/      # Intel Mac scripts
+├── justfile                 # Task runner with common commands
+├── .sops.yaml              # SOPS configuration for secrets management
+├── apps/                    # Build and deployment scripts (per architecture)
+│   ├── aarch64-darwin/     # Apple Silicon scripts (apply, build, rollback, etc.)
+│   ├── x86_64-darwin/      # Intel Mac scripts (with key management)
 │   └── x86_64-linux/       # Linux (WSL2) scripts
+├── docs/                    # Documentation
+│   └── setting-up-work-machine-wsl2.md
 ├── hosts/                   # System-specific configurations
-│   ├── darwin/             # macOS host configuration
-│   └── linux/              # Linux host configuration
+│   ├── darwin-otsk/        # Work MacBook configuration
+│   ├── skagur-mba/         # Personal MacBook configuration
+│   └── wsl2/               # Linux WSL2 configuration
 ├── modules/                 # Reusable configuration modules
-│   ├── darwin/             # macOS-specific modules
+│   ├── darwin/             # Personal macOS-specific modules
 │   │   ├── config/         # App configurations (Ghostty, LeaderKey)
 │   │   ├── casks.nix       # Homebrew casks
 │   │   ├── files.nix       # Static file deployment
 │   │   ├── home-manager.nix # User configuration
 │   │   └── packages.nix    # macOS-specific packages
+│   ├── darwin-otsk/        # Work macOS-specific modules
+│   │   ├── files.nix       # Work-specific file deployment
+│   │   ├── home-manager.nix # Work user configuration
+│   │   └── packages.nix    # Work-specific packages
 │   ├── linux/              # Linux-specific modules
-│   │   ├── config/         # App configurations
+│   │   ├── config/         # Linux app configurations (zsh)
 │   │   ├── files.nix       # Static file deployment
-│   │   ├── home-manager.nix # User configuration
+│   │   ├── home-manager.nix # User configuration with SSH setup
 │   │   └── packages.nix    # Linux-specific packages
 │   └── shared/             # Cross-platform modules
 │       ├── config/         # Shared app configurations
 │       │   ├── helix/      # Helix editor config
+│       │   ├── k9s/        # Kubernetes CLI config
 │       │   ├── starship/   # Shell prompt config
 │       │   ├── zellij/     # Terminal multiplexer config
-│       │   └── zsh/        # Shell configuration
+│       │   └── zsh/        # Shell configuration (aliases, env, functions)
+│       ├── default.nix     # Shared module entry point
 │       ├── files.nix       # Shared file deployment
-│       ├── home-manager.nix # Shared user programs
+│       ├── home-manager.nix # Shared user programs and settings
 │       └── packages.nix    # Shared packages
-└── overlays/               # Nix overlays for custom packages
+├── overlays/               # Nix overlays for custom packages
+├── scripts/                # Utility scripts
+│   ├── decrypt-kubeconfig.sh # Kubernetes config decryption
+│   ├── encrypt-kubeconfig.sh # Kubernetes config encryption
+│   ├── generate-brewfile.sh  # Homebrew bundle generation
+│   └── setup-git-hooks.sh    # Git hooks setup
+└── secrets/                # Encrypted secrets and keys
+    ├── README.md           # Secrets documentation
+    ├── age-public.txt      # Public age key for encryption
+    ├── kubeconfig.enc.yaml # Encrypted Kubernetes config
+    └── secrets.yaml        # SOPS-encrypted secrets file
 ```
 
 ## 🛠️ Prerequisites
@@ -125,8 +149,8 @@ nix flake --help
 ### Step 1: Clone the Repository
 
 ```bash
-# Clone to your home directory
-git clone https://github.com/YOUR_USERNAME/nix-config.git ~/nix-config
+# Clone to your home directory (update with your fork if you've forked it)
+git clone https://github.com/skagur-k/nix-config.git ~/nix-config
 cd ~/nix-config
 ```
 
@@ -134,15 +158,22 @@ cd ~/nix-config
 
 **Important**: You must update the user information before installation.
 
-Edit `modules/shared/home-manager.nix`:
+Edit the user variables in the appropriate modules:
 ```bash
-# Open the file in your editor
+# For shared configuration
 $EDITOR modules/shared/home-manager.nix
 
-# Update these lines (around line 9-12):
-name = "Your Full Name";
-user = "your-username";  
-email = "your.email@example.com";
+# For Linux-specific configuration  
+$EDITOR modules/linux/home-manager.nix
+
+# Update the user variable (currently set to "skagur")
+user = "your-username";
+
+# Also update git configuration in shared/home-manager.nix
+programs.git = {
+  userName = "Your Full Name";
+  userEmail = "your.email@example.com";
+};
 ```
 
 ### Step 3: Choose Your Installation Method
@@ -158,17 +189,29 @@ just --list
 
 # Apply configuration (builds and switches)
 just switch
+
+# For work MacBook (OTSK configuration)
+just switch-otsk
 ```
 
 #### Method B: Using Nix Commands Directly
 
-**For macOS:**
+**For macOS (Personal - skagur-mba):**
 ```bash
 # Apple Silicon Macs
 nix run .#build-switch
 
 # Intel Macs  
 nix run .#build-switch --system x86_64-darwin
+```
+
+**For macOS (Work - darwin-otsk):**
+```bash
+# Apple Silicon Macs
+nix run .#build-switch-otsk
+
+# Intel Macs
+nix run .#build-switch-otsk --system x86_64-darwin
 ```
 
 **For Linux (WSL2):**
@@ -253,41 +296,124 @@ gs           # Git status alias
 
 After making changes, run `just switch` to apply them.
 
+### 5. Secrets Management (Optional)
+This configuration includes SOPS-nix for secrets management:
+
+```bash
+# If you need to manage secrets, first install age and sops
+nix profile install nixpkgs#age nixpkgs#sops
+
+# Generate age key pair (for new setup)
+age-keygen -o ~/.config/sops/age/keys.txt
+
+# Encrypt new secrets
+sops secrets/secrets.yaml
+
+# The configuration automatically handles:
+# - SSH key deployment from encrypted secrets
+# - Kubernetes config encryption/decryption via scripts
+```
+
 ## 📋 Available Commands
 
 ### Using Justfile (Recommended)
 The project includes a `justfile` for simplified command management. Run `just --list` to see all available commands.
 
-**Quick Commands:**
+**Core Commands:**
 - `just switch` - Build and switch to new configuration
+- `just switch-otsk` - Build and switch for work MacBook (OTSK)
+- `just build` - Build configuration (test only)
 - `just apply` - Apply user information (interactive)
 - `just rollback` - Rollback to previous generation
-- `just check` - Check system configuration
-- `just update` - Update flake inputs
-- `just clean` - Clean build artifacts
-- `just help` - Show detailed help
 
-**Development Commands:**
+**System Management:**
+- `just update` - Update flake inputs
+- `just check` - Check system configuration  
+- `just info` - Show system information
+- `just clean` - Clean build artifacts
+- `just deps` - Show flake dependencies
+
+**Development:**
+- `just dev` - Enter development shell
 - `just fmt` - Format Nix files
-- `just lint` - Lint Nix files
-- `just diff` - Show configuration diff
-- `just backup` - Backup current configuration
-- `just restore <path>` - Restore from backup
+- `just help` - Show detailed help with examples
+
+**Homebrew Management (macOS):**
+- `just brewfile` - Generate Brewfile from casks.nix
+- `just setup-hooks` - Setup git hooks for auto-Brewfile generation
+- `just brew-install` - Install apps from ~/.config/Brewfile
 
 ### Traditional Nix Commands
+
+**Build Commands:**
 - `nix run .#build` - Build configuration (test only)
-- `nix run .#build-switch` - Build and switch to new configuration
+- `nix run .#build-switch` - Build and switch to new configuration (personal)
+- `nix run .#build-switch-otsk` - Build and switch for work MacBook
+
+**Management Commands:**
 - `nix run .#apply` - Apply user information
 - `nix run .#rollback` - Rollback to previous generation
 
-
-
-### Development
+**Key Management (Intel macOS only):**
 - `nix run .#check-keys` - Check SSH keys
 - `nix run .#copy-keys` - Copy SSH keys
 - `nix run .#create-keys` - Create SSH keys
 
-## 🔧 Configuration Workflow
+## �️ Host Configurations
+
+This configuration supports multiple machines with specialized setups:
+
+### Personal MacBook (skagur-mba)
+- **Target**: Personal development and daily use
+- **Features**: Full application suite, personal SSH keys, development tools
+- **Build command**: `just switch` or `nix run .#build-switch`
+
+### Work MacBook (darwin-otsk) 
+- **Target**: Work environment with specialized tooling
+- **Features**: Work-specific packages, separate SSH configuration, OTSK-specific settings
+- **Build command**: `just switch-otsk` or `nix run .#build-switch-otsk`
+
+### Linux WSL2 (wsl2)
+- **Target**: Development environment in Windows WSL2
+- **Features**: Linux-specific packages, WSL environment variables, SSH configuration
+- **Build command**: `just switch` or `nix run .#build-switch`
+- **Documentation**: See `docs/setting-up-work-machine-wsl2.md` for setup details
+
+Each host configuration includes:
+- Host-specific package lists
+- Environment-specific file deployments  
+- SSH key management via SOPS
+- Tailored application configurations
+
+## 🔐 Secrets Management
+
+This configuration uses SOPS-nix for secure secrets management:
+
+### Features
+- **SSH Keys**: Automatically deployed from encrypted secrets
+- **Age Encryption**: Used for secrets encryption/decryption
+- **Kubernetes Config**: Encrypted kubeconfig with helper scripts
+- **Per-Host Keys**: Different keys for different environments
+
+### Key Files
+- `secrets/secrets.yaml` - Main encrypted secrets file
+- `secrets/age-public.txt` - Public age key for encryption
+- `secrets/kubeconfig.enc.yaml` - Encrypted Kubernetes configuration
+- `scripts/encrypt-kubeconfig.sh` - Encrypt Kubernetes config
+- `scripts/decrypt-kubeconfig.sh` - Decrypt Kubernetes config
+
+### Setup
+```bash
+# Generate age key (first time setup)
+mkdir -p ~/.config/sops/age
+age-keygen -o ~/.config/sops/age/keys.txt
+
+# Add public key to secrets/age-public.txt
+# Edit secrets
+sops secrets/secrets.yaml
+```
+
+## �🔧 Configuration Workflow
 
 ### Making Changes
 
@@ -338,11 +464,25 @@ nix run .#build-switch
 - **Ripgrep**: Fast text search
 - **Eza**: Modern ls replacement
 
-### System Tools
-- **Homebrew**: Package manager for macOS
-- **LeaderKey**: Application launcher (macOS)
+### Kubernetes & DevOps
+- **K9s**: Kubernetes CLI dashboard with custom themes
+- **kubectl**: Kubernetes command-line tool
 - **Docker**: Container platform
-- **Various fonts**: Programming fonts including JetBrains Mono
+
+### System Tools
+- **Homebrew**: Package manager for macOS (with Brewfile generation)
+- **LeaderKey**: Application launcher (macOS)
+- **SOPS**: Secrets encryption/decryption
+- **Age**: File encryption tool
+
+### Security & SSH
+- **SSH**: Configured with multiple identity files for different services
+- **Age encryption**: For secrets management
+- **Automatic SSH key deployment**: Via SOPS-encrypted secrets
+
+### Fonts & Themes
+- **JetBrains Mono**: Programming font
+- **Custom terminal themes**: Including transparent K9s skin
 
 ## 🔧 Troubleshooting
 
@@ -403,6 +543,8 @@ df -h
 
 ### Runtime Issues
 
+### Runtime Issues
+
 #### Configuration Not Loading
 ```bash
 # Ensure you're using a new terminal session
@@ -419,6 +561,21 @@ echo $PATH
 
 # Reload nix environment
 source ~/.nix-profile/etc/profile.d/nix.sh
+```
+
+#### SOPS/Secrets Issues
+```bash
+# Check if age key exists
+ls -la ~/.config/sops/age/keys.txt
+
+# Test SOPS decryption
+sops --decrypt secrets/secrets.yaml
+
+# Check SSH key deployment
+ls -la ~/.ssh/
+
+# Re-decrypt kubeconfig if needed
+./scripts/decrypt-kubeconfig.sh
 ```
 
 #### File Conflicts
@@ -465,10 +622,34 @@ The warning about uncommitted changes is normal and indicates you have local mod
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
+2. Create a feature branch  
 3. Make your changes
-4. Test with `nix build`
-5. Submit a pull request
+4. Test with `just build` or `nix build`
+5. Format code with `just fmt`
+6. Update documentation if needed
+7. Submit a pull request
+
+### Development Workflow
+```bash
+# Enter development shell
+just dev
+
+# Make changes to configuration files
+# Test your changes
+just build
+
+# Format code
+just fmt
+
+# Apply and test
+just switch
+```
+
+### Adding New Features
+- **New packages**: Add to appropriate `packages.nix` file
+- **New applications**: Add to `casks.nix` (macOS) or packages
+- **New configurations**: Add config files and reference in `files.nix`
+- **New hosts**: Create new host directory and update `flake.nix`
 
 ## 📄 License
 
