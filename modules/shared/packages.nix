@@ -21,6 +21,7 @@ with pkgs;
   helix
   htop
   jq
+  yq
   ripgrep
   tree
   unzip
