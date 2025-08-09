@@ -53,6 +53,19 @@ in
       enableZshIntegration = true;
     };
 
+    atuin = {
+      enable = true;
+      settings = {
+        enter_accept = false;
+      };
+    };
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true; # see note on other shells below
+      nix-direnv.enable = true;
+    };
+
     git = {
       enable = true;
       ignores = [ "*.swp" ];
@@ -79,7 +92,22 @@ in
         merge = {
           conflictstyle = "zdiff3";
         };
-        pull.rebase = true;
+        url = {
+          "https://github.com/skagur-k/" = {
+            insteadOf = "skagur:";
+          };
+          "https://github.com/ocean-network-express/" = {
+            insteadOf = "one:";
+          };
+        };
+        push = {
+          autoSetupRemote = true;
+          default = "current";
+        };
+        pull = {
+          default = "current";
+          rebase = true;
+        };
         rebase.autoStash = true;
       };
 

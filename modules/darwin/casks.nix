@@ -16,6 +16,9 @@ _:
   "parsec"
   "keka"
 
+  # Misc
+  "discord"
+
   # Browsers
   "google-chrome"
 

@@ -42,6 +42,7 @@ with pkgs;
   google-cloud-sdk
   k9s
   lazygit
+  pre-commit
 
   # Nix development tools
   nixpkgs-fmt
