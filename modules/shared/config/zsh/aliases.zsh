@@ -67,10 +67,6 @@ alias zl='z -l'  # List matches instead of jumping
 # Development shortcuts
 alias python='python3'
 alias pip='pip3'
-alias node='nodejs'
-alias npm='npm'
-alias yarn='yarn'
-alias pnpm='pnpm'
 
 # Network aliases
 alias ping='ping -c 5'

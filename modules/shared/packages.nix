@@ -43,6 +43,7 @@ with pkgs;
   k9s
   lazygit
   pre-commit
+  nodejs_22
 
   # Nix development tools
   nixpkgs-fmt
