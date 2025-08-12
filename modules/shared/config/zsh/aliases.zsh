@@ -121,6 +121,7 @@ alias nv='nvim'
 alias code='code'
 alias cur='cursor'
 
+alias tf='terraform'
 # Quick file editing
 alias zshrc='hx ~/.zshrc'
 alias vimrc='hx ~/.vimrc'

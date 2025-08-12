@@ -57,6 +57,7 @@ in
       enable = true;
       settings = {
         enter_accept = false;
+        inline_height = 15;
       };
     };
 
