@@ -29,21 +29,14 @@ with pkgs;
   skim
   delta
 
-  # Python packages
-  python3
-  virtualenv
-
   # Development Packages
   kubectl
   kubectx
   gh
-  tenv
-  cosign
   google-cloud-sdk
   k9s
   lazygit
   pre-commit
-  nodejs_22
 
   # Nix development tools
   nixpkgs-fmt

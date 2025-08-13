@@ -37,8 +37,12 @@ in
         "--git-repos"
         "-o"
         "--header"
-        "--hyperlink"
       ];
+    };
+
+    mise = {
+      enable = true;
+      enableZshIntegration = true;
     };
 
     # FZF configuration
