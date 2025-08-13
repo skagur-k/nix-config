@@ -11,6 +11,6 @@ background-blur = true
 window-padding-x = 12
 window-padding-y = 8
 
-window-save-state = always
+window-save-state = never
 
 macos-titlebar-style = transparent

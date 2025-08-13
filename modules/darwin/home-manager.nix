@@ -74,6 +74,7 @@ in
 
         programs = (import ../shared/home-manager.nix { inherit config pkgs lib; }).programs // {
           # SSH configuration
+
           ssh = {
             enable = true;
             addKeysToAgent = "yes";

@@ -87,7 +87,7 @@ alias free='free -h'
 alias top='htop'
 
 # Text processing
-alias grep='rg --color=auto'
+# alias grep='rg --color=auto'
 alias wc='wc -l'
 alias head='head -20'
 alias tail='tail -20'

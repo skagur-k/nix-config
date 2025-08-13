@@ -17,6 +17,22 @@ success_symbol = "[>](bold green)"
 error_symbol = "[x](bold red)"
 vimcmd_symbol = "[<](bold green)"
 
+# Username configuration
+[username]
+style_user = "bold cyan"
+style_root = "bold red"
+format = "[$user]($style)@"
+disabled = false
+show_always = true
+
+# Hostname configuration
+[hostname]
+ssh_only = false
+# format = "[$hostname]($style): "
+format = "[rivendell]($style): "
+style = "bold green"
+disabled = false
+
 [git_commit]
 tag_symbol = " tag "
 
@@ -74,6 +90,10 @@ symbol = ".NET "
 
 [directory]
 read_only = " ro"
+truncation_length = 0
+truncate_to_repo = false
+format = "[$path]($style)[$read_only]($read_only_style) "
+style = "bold blue"
 
 [docker_context]
 symbol = "docker "

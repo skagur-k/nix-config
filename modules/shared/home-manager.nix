@@ -53,12 +53,18 @@ in
       enableZshIntegration = true;
     };
 
-    atuin = {
+    # atuin = {
+    #   enable = true;
+    #   settings = {
+    #     enter_accept = false;
+    #     inline_height = 15;
+    #   };
+    # };
+
+    kubecolor = {
       enable = true;
-      settings = {
-        enter_accept = false;
-        inline_height = 15;
-      };
+      enableZshIntegration = true;
+      enableAlias = true;
     };
 
     direnv = {
