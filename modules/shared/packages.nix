@@ -17,7 +17,6 @@ with pkgs;
   fastfetch
 
   # Text and terminal utilities
-  eza
   helix
   htop
   jq

@@ -28,6 +28,19 @@ in
       enableZshIntegration = true;
     };
 
+    eza = {
+      enable = true;
+      enableZshIntegration = true;
+      extraOptions = [
+        "--group-directories-first"
+        "--git"
+        "--git-repos"
+        "-o"
+        "--header"
+        "--hyperlink"
+      ];
+    };
+
     # FZF configuration
     fzf = {
       enable = true;
@@ -53,13 +66,13 @@ in
       enableZshIntegration = true;
     };
 
-    # atuin = {
-    #   enable = true;
-    #   settings = {
-    #     enter_accept = false;
-    #     inline_height = 15;
-    #   };
-    # };
+    atuin = {
+      enable = true;
+      settings = {
+        enter_accept = false;
+        inline_height = 10;
+      };
+    };
 
     kubecolor = {
       enable = true;

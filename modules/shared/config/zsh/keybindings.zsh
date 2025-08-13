@@ -8,4 +8,4 @@ bindkey '\e[3~' delete-char              # Delete
 # Better history searching
 bindkey '^ ' autosuggest-accept
 
-# Create widget from function and bind to Ctrl+P
+bindkey ';2;13~' accept-line

@@ -14,11 +14,6 @@ alias lg='lazygit'
 # Use bat instead of cat
 alias cat='bat'
 
-# Use eza instead of ls
-alias ls='eza'
-alias ll='eza -la'
-alias la='eza -A'
-
 # Git aliases
 alias gs='git status'
 alias ga='git add'
