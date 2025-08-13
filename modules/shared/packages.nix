@@ -38,7 +38,8 @@ with pkgs;
   kubectl
   kubectx
   gh
-  terraform
+  tenv
+  cosign
   google-cloud-sdk
   k9s
   lazygit
