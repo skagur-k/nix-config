@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  user = "skagur";
+  user = "namhyuck.kim";
 in
 
 {
@@ -30,7 +30,7 @@ in
   };
 
   # Set the hostname for work MacBook
-  networking.hostName = "skagur-otsk";
+  networking.hostName = "KR-OTS-WD9X0XP";
 
   # Disable nix-darwin's Nix management since we don't have sudo
   nix = {
