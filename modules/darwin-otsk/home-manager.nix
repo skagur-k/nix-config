@@ -6,7 +6,7 @@
 }:
 
 let
-  user = "skagur";
+  user = "namhyuck.kim";
   name = "Nam Hyuck (James) Kim";
   email = "namhyuck.kim@one-line.com";
   sharedFiles = import ../shared/files.nix { inherit config pkgs; };
